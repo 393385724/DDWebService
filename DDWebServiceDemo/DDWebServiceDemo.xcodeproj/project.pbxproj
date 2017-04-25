@@ -13,16 +13,16 @@
 		90A9D3721EAF2AC000AD531A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90A9D3701EAF2AC000AD531A /* Main.storyboard */; };
 		90A9D3741EAF2AC000AD531A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90A9D3731EAF2AC000AD531A /* Assets.xcassets */; };
 		90A9D3771EAF2AC000AD531A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90A9D3751EAF2AC000AD531A /* LaunchScreen.storyboard */; };
-		90A9D3981EAF2ACB00AD531A /* NSError+WebServie.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3811EAF2ACB00AD531A /* NSError+WebServie.m */; };
-		90A9D3991EAF2ACB00AD531A /* NSString+WebService.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3831EAF2ACB00AD531A /* NSString+WebService.m */; };
-		90A9D39A1EAF2ACB00AD531A /* WSMultipartFormData.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3851EAF2ACB00AD531A /* WSMultipartFormData.m */; };
-		90A9D39B1EAF2ACB00AD531A /* WSNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3871EAF2ACB00AD531A /* WSNetworkConfig.m */; };
-		90A9D39C1EAF2ACB00AD531A /* WSNetworkMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3891EAF2ACB00AD531A /* WSNetworkMonitor.m */; };
-		90A9D39D1EAF2ACB00AD531A /* WSQueryFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D38B1EAF2ACB00AD531A /* WSQueryFormat.m */; };
-		90A9D39E1EAF2ACB00AD531A /* WSRequestAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D38D1EAF2ACB00AD531A /* WSRequestAgent.m */; };
-		90A9D39F1EAF2ACB00AD531A /* WSRequestCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D38F1EAF2ACB00AD531A /* WSRequestCache.m */; };
-		90A9D3A01EAF2ACB00AD531A /* WSNetWorkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3921EAF2ACB00AD531A /* WSNetWorkClient.m */; };
-		90A9D3A11EAF2ACB00AD531A /* WSRequestTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3961EAF2ACB00AD531A /* WSRequestTask.m */; };
+		90A9D3BC1EAF316400AD531A /* NSError+WebServie.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3A51EAF316400AD531A /* NSError+WebServie.m */; };
+		90A9D3BD1EAF316400AD531A /* NSString+WebService.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3A71EAF316400AD531A /* NSString+WebService.m */; };
+		90A9D3BE1EAF316400AD531A /* WSMultipartFormData.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3A91EAF316400AD531A /* WSMultipartFormData.m */; };
+		90A9D3BF1EAF316400AD531A /* WSNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3AB1EAF316400AD531A /* WSNetworkConfig.m */; };
+		90A9D3C01EAF316400AD531A /* WSNetworkMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3AD1EAF316400AD531A /* WSNetworkMonitor.m */; };
+		90A9D3C11EAF316400AD531A /* WSQueryFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3AF1EAF316400AD531A /* WSQueryFormat.m */; };
+		90A9D3C21EAF316400AD531A /* WSRequestAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3B11EAF316400AD531A /* WSRequestAgent.m */; };
+		90A9D3C31EAF316400AD531A /* WSRequestCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3B31EAF316400AD531A /* WSRequestCache.m */; };
+		90A9D3C41EAF316400AD531A /* WSNetWorkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3B61EAF316400AD531A /* WSNetWorkClient.m */; };
+		90A9D3C51EAF316400AD531A /* WSRequestTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3BA1EAF316400AD531A /* WSRequestTask.m */; };
 		ED8F56DCC90FC1CF356FCF6A /* libPods-DDWebServiceDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7CAA1904910192850496F94 /* libPods-DDWebServiceDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -39,28 +39,28 @@
 		90A9D3731EAF2AC000AD531A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		90A9D3761EAF2AC000AD531A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		90A9D3781EAF2AC000AD531A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		90A9D3801EAF2ACB00AD531A /* NSError+WebServie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+WebServie.h"; sourceTree = "<group>"; };
-		90A9D3811EAF2ACB00AD531A /* NSError+WebServie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+WebServie.m"; sourceTree = "<group>"; };
-		90A9D3821EAF2ACB00AD531A /* NSString+WebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WebService.h"; sourceTree = "<group>"; };
-		90A9D3831EAF2ACB00AD531A /* NSString+WebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+WebService.m"; sourceTree = "<group>"; };
-		90A9D3841EAF2ACB00AD531A /* WSMultipartFormData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSMultipartFormData.h; sourceTree = "<group>"; };
-		90A9D3851EAF2ACB00AD531A /* WSMultipartFormData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSMultipartFormData.m; sourceTree = "<group>"; };
-		90A9D3861EAF2ACB00AD531A /* WSNetworkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSNetworkConfig.h; sourceTree = "<group>"; };
-		90A9D3871EAF2ACB00AD531A /* WSNetworkConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSNetworkConfig.m; sourceTree = "<group>"; };
-		90A9D3881EAF2ACB00AD531A /* WSNetworkMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSNetworkMonitor.h; sourceTree = "<group>"; };
-		90A9D3891EAF2ACB00AD531A /* WSNetworkMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSNetworkMonitor.m; sourceTree = "<group>"; };
-		90A9D38A1EAF2ACB00AD531A /* WSQueryFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSQueryFormat.h; sourceTree = "<group>"; };
-		90A9D38B1EAF2ACB00AD531A /* WSQueryFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSQueryFormat.m; sourceTree = "<group>"; };
-		90A9D38C1EAF2ACB00AD531A /* WSRequestAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSRequestAgent.h; sourceTree = "<group>"; };
-		90A9D38D1EAF2ACB00AD531A /* WSRequestAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSRequestAgent.m; sourceTree = "<group>"; };
-		90A9D38E1EAF2ACB00AD531A /* WSRequestCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSRequestCache.h; sourceTree = "<group>"; };
-		90A9D38F1EAF2ACB00AD531A /* WSRequestCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSRequestCache.m; sourceTree = "<group>"; };
-		90A9D3911EAF2ACB00AD531A /* WSNetWorkClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSNetWorkClient.h; sourceTree = "<group>"; };
-		90A9D3921EAF2ACB00AD531A /* WSNetWorkClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSNetWorkClient.m; sourceTree = "<group>"; };
-		90A9D3941EAF2ACB00AD531A /* WSRequestCallbackProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSRequestCallbackProtocol.h; sourceTree = "<group>"; };
-		90A9D3951EAF2ACB00AD531A /* WSRequestTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSRequestTask.h; sourceTree = "<group>"; };
-		90A9D3961EAF2ACB00AD531A /* WSRequestTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSRequestTask.m; sourceTree = "<group>"; };
-		90A9D3971EAF2ACB00AD531A /* WSTypeDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSTypeDefines.h; sourceTree = "<group>"; };
+		90A9D3A41EAF316400AD531A /* NSError+WebServie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+WebServie.h"; sourceTree = "<group>"; };
+		90A9D3A51EAF316400AD531A /* NSError+WebServie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+WebServie.m"; sourceTree = "<group>"; };
+		90A9D3A61EAF316400AD531A /* NSString+WebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WebService.h"; sourceTree = "<group>"; };
+		90A9D3A71EAF316400AD531A /* NSString+WebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+WebService.m"; sourceTree = "<group>"; };
+		90A9D3A81EAF316400AD531A /* WSMultipartFormData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSMultipartFormData.h; sourceTree = "<group>"; };
+		90A9D3A91EAF316400AD531A /* WSMultipartFormData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSMultipartFormData.m; sourceTree = "<group>"; };
+		90A9D3AA1EAF316400AD531A /* WSNetworkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSNetworkConfig.h; sourceTree = "<group>"; };
+		90A9D3AB1EAF316400AD531A /* WSNetworkConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSNetworkConfig.m; sourceTree = "<group>"; };
+		90A9D3AC1EAF316400AD531A /* WSNetworkMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSNetworkMonitor.h; sourceTree = "<group>"; };
+		90A9D3AD1EAF316400AD531A /* WSNetworkMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSNetworkMonitor.m; sourceTree = "<group>"; };
+		90A9D3AE1EAF316400AD531A /* WSQueryFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSQueryFormat.h; sourceTree = "<group>"; };
+		90A9D3AF1EAF316400AD531A /* WSQueryFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSQueryFormat.m; sourceTree = "<group>"; };
+		90A9D3B01EAF316400AD531A /* WSRequestAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSRequestAgent.h; sourceTree = "<group>"; };
+		90A9D3B11EAF316400AD531A /* WSRequestAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSRequestAgent.m; sourceTree = "<group>"; };
+		90A9D3B21EAF316400AD531A /* WSRequestCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSRequestCache.h; sourceTree = "<group>"; };
+		90A9D3B31EAF316400AD531A /* WSRequestCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSRequestCache.m; sourceTree = "<group>"; };
+		90A9D3B51EAF316400AD531A /* WSNetWorkClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSNetWorkClient.h; sourceTree = "<group>"; };
+		90A9D3B61EAF316400AD531A /* WSNetWorkClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSNetWorkClient.m; sourceTree = "<group>"; };
+		90A9D3B81EAF316400AD531A /* WSRequestCallbackProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSRequestCallbackProtocol.h; sourceTree = "<group>"; };
+		90A9D3B91EAF316400AD531A /* WSRequestTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSRequestTask.h; sourceTree = "<group>"; };
+		90A9D3BA1EAF316400AD531A /* WSRequestTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSRequestTask.m; sourceTree = "<group>"; };
+		90A9D3BB1EAF316400AD531A /* WSTypeDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSTypeDefines.h; sourceTree = "<group>"; };
 		D7CAA1904910192850496F94 /* libPods-DDWebServiceDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DDWebServiceDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -88,7 +88,7 @@
 		90A9D35B1EAF2AC000AD531A = {
 			isa = PBXGroup;
 			children = (
-				90A9D37E1EAF2ACB00AD531A /* DDWebServie */,
+				90A9D3A21EAF316400AD531A /* DDWebService */,
 				90A9D3661EAF2AC000AD531A /* DDWebServiceDemo */,
 				90A9D3651EAF2AC000AD531A /* Products */,
 				466310025BAC02D3890B220C /* Pods */,
@@ -128,56 +128,56 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		90A9D37E1EAF2ACB00AD531A /* DDWebServie */ = {
+		90A9D3A21EAF316400AD531A /* DDWebService */ = {
 			isa = PBXGroup;
 			children = (
-				90A9D37F1EAF2ACB00AD531A /* Auxfun */,
-				90A9D3901EAF2ACB00AD531A /* Client */,
-				90A9D3931EAF2ACB00AD531A /* Task */,
+				90A9D3A31EAF316400AD531A /* Auxfun */,
+				90A9D3B41EAF316400AD531A /* Client */,
+				90A9D3B71EAF316400AD531A /* Task */,
 			);
-			name = DDWebServie;
-			path = ../DDWebServie;
+			name = DDWebService;
+			path = ../DDWebService;
 			sourceTree = "<group>";
 		};
-		90A9D37F1EAF2ACB00AD531A /* Auxfun */ = {
+		90A9D3A31EAF316400AD531A /* Auxfun */ = {
 			isa = PBXGroup;
 			children = (
-				90A9D3801EAF2ACB00AD531A /* NSError+WebServie.h */,
-				90A9D3811EAF2ACB00AD531A /* NSError+WebServie.m */,
-				90A9D3821EAF2ACB00AD531A /* NSString+WebService.h */,
-				90A9D3831EAF2ACB00AD531A /* NSString+WebService.m */,
-				90A9D3841EAF2ACB00AD531A /* WSMultipartFormData.h */,
-				90A9D3851EAF2ACB00AD531A /* WSMultipartFormData.m */,
-				90A9D3861EAF2ACB00AD531A /* WSNetworkConfig.h */,
-				90A9D3871EAF2ACB00AD531A /* WSNetworkConfig.m */,
-				90A9D3881EAF2ACB00AD531A /* WSNetworkMonitor.h */,
-				90A9D3891EAF2ACB00AD531A /* WSNetworkMonitor.m */,
-				90A9D38A1EAF2ACB00AD531A /* WSQueryFormat.h */,
-				90A9D38B1EAF2ACB00AD531A /* WSQueryFormat.m */,
-				90A9D38C1EAF2ACB00AD531A /* WSRequestAgent.h */,
-				90A9D38D1EAF2ACB00AD531A /* WSRequestAgent.m */,
-				90A9D38E1EAF2ACB00AD531A /* WSRequestCache.h */,
-				90A9D38F1EAF2ACB00AD531A /* WSRequestCache.m */,
+				90A9D3A41EAF316400AD531A /* NSError+WebServie.h */,
+				90A9D3A51EAF316400AD531A /* NSError+WebServie.m */,
+				90A9D3A61EAF316400AD531A /* NSString+WebService.h */,
+				90A9D3A71EAF316400AD531A /* NSString+WebService.m */,
+				90A9D3A81EAF316400AD531A /* WSMultipartFormData.h */,
+				90A9D3A91EAF316400AD531A /* WSMultipartFormData.m */,
+				90A9D3AA1EAF316400AD531A /* WSNetworkConfig.h */,
+				90A9D3AB1EAF316400AD531A /* WSNetworkConfig.m */,
+				90A9D3AC1EAF316400AD531A /* WSNetworkMonitor.h */,
+				90A9D3AD1EAF316400AD531A /* WSNetworkMonitor.m */,
+				90A9D3AE1EAF316400AD531A /* WSQueryFormat.h */,
+				90A9D3AF1EAF316400AD531A /* WSQueryFormat.m */,
+				90A9D3B01EAF316400AD531A /* WSRequestAgent.h */,
+				90A9D3B11EAF316400AD531A /* WSRequestAgent.m */,
+				90A9D3B21EAF316400AD531A /* WSRequestCache.h */,
+				90A9D3B31EAF316400AD531A /* WSRequestCache.m */,
 			);
 			path = Auxfun;
 			sourceTree = "<group>";
 		};
-		90A9D3901EAF2ACB00AD531A /* Client */ = {
+		90A9D3B41EAF316400AD531A /* Client */ = {
 			isa = PBXGroup;
 			children = (
-				90A9D3911EAF2ACB00AD531A /* WSNetWorkClient.h */,
-				90A9D3921EAF2ACB00AD531A /* WSNetWorkClient.m */,
+				90A9D3B51EAF316400AD531A /* WSNetWorkClient.h */,
+				90A9D3B61EAF316400AD531A /* WSNetWorkClient.m */,
 			);
 			path = Client;
 			sourceTree = "<group>";
 		};
-		90A9D3931EAF2ACB00AD531A /* Task */ = {
+		90A9D3B71EAF316400AD531A /* Task */ = {
 			isa = PBXGroup;
 			children = (
-				90A9D3941EAF2ACB00AD531A /* WSRequestCallbackProtocol.h */,
-				90A9D3951EAF2ACB00AD531A /* WSRequestTask.h */,
-				90A9D3961EAF2ACB00AD531A /* WSRequestTask.m */,
-				90A9D3971EAF2ACB00AD531A /* WSTypeDefines.h */,
+				90A9D3B81EAF316400AD531A /* WSRequestCallbackProtocol.h */,
+				90A9D3B91EAF316400AD531A /* WSRequestTask.h */,
+				90A9D3BA1EAF316400AD531A /* WSRequestTask.m */,
+				90A9D3BB1EAF316400AD531A /* WSTypeDefines.h */,
 			);
 			path = Task;
 			sourceTree = "<group>";
@@ -313,19 +313,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90A9D39D1EAF2ACB00AD531A /* WSQueryFormat.m in Sources */,
-				90A9D3981EAF2ACB00AD531A /* NSError+WebServie.m in Sources */,
-				90A9D39C1EAF2ACB00AD531A /* WSNetworkMonitor.m in Sources */,
-				90A9D39B1EAF2ACB00AD531A /* WSNetworkConfig.m in Sources */,
+				90A9D3C11EAF316400AD531A /* WSQueryFormat.m in Sources */,
+				90A9D3BC1EAF316400AD531A /* NSError+WebServie.m in Sources */,
+				90A9D3C01EAF316400AD531A /* WSNetworkMonitor.m in Sources */,
+				90A9D3BF1EAF316400AD531A /* WSNetworkConfig.m in Sources */,
 				90A9D36F1EAF2AC000AD531A /* ViewController.m in Sources */,
-				90A9D39A1EAF2ACB00AD531A /* WSMultipartFormData.m in Sources */,
-				90A9D3991EAF2ACB00AD531A /* NSString+WebService.m in Sources */,
-				90A9D3A01EAF2ACB00AD531A /* WSNetWorkClient.m in Sources */,
-				90A9D39F1EAF2ACB00AD531A /* WSRequestCache.m in Sources */,
+				90A9D3BE1EAF316400AD531A /* WSMultipartFormData.m in Sources */,
+				90A9D3BD1EAF316400AD531A /* NSString+WebService.m in Sources */,
+				90A9D3C41EAF316400AD531A /* WSNetWorkClient.m in Sources */,
+				90A9D3C31EAF316400AD531A /* WSRequestCache.m in Sources */,
 				90A9D36C1EAF2AC000AD531A /* AppDelegate.m in Sources */,
 				90A9D3691EAF2AC000AD531A /* main.m in Sources */,
-				90A9D39E1EAF2ACB00AD531A /* WSRequestAgent.m in Sources */,
-				90A9D3A11EAF2ACB00AD531A /* WSRequestTask.m in Sources */,
+				90A9D3C21EAF316400AD531A /* WSRequestAgent.m in Sources */,
+				90A9D3C51EAF316400AD531A /* WSRequestTask.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,6 +486,7 @@
 				90A9D37D1EAF2AC000AD531A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
