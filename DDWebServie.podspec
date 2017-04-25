@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.homepage         = "https://github.com/393385724/DDWebServie"  
   s.license          = 'MIT'  
   s.author           = { "llg" => "393385724@qq.com" }  
-  s.source           = { :git => "https://github.com/393385724/DDWebServie.git", :tag => s.version.to_s }  
+  s.source           = { :git => "https://github.com/393385724/DDWebService.git", :tag => s.version.to_s }  
   
   s.platform     = :ios, '8.0'  
   s.requires_arc = true 
