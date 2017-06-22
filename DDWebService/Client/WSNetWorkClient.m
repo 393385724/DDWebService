@@ -322,7 +322,7 @@
     }
     
     //3、校验responseObject不能为NSNull class
-    if (!responseError || [requestModel.responseRawObject isKindOfClass:[NSNull class]]) {
+    if (!responseError && [requestModel.responseRawObject isKindOfClass:[NSNull class]]) {
         responseError = [NSError wsResponseFormatError];
     }
     //4、如果是json结构，选择进行强校验
