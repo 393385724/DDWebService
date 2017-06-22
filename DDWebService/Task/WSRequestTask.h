@@ -199,7 +199,7 @@ typedef void (^WSConstructingBlock)(id<AFMultipartFormData> formData);
 #pragma mark - response校验器
 
 /**
- 用于校验responseStatusCode是否正确[200-300)
+ 用于校验responseStatusCode是否合法有效解析
  */
 - (BOOL)statusCodeValidator;
 /**

@@ -84,14 +84,15 @@
     //生成请求task
     NSError *requestSerializationError = nil;
     requestModel.requestTask = [self sessionTaskForRequestModel:requestModel error:&requestSerializationError];
-    //是否允许Hook重定向方法
-    if (requestModel.shouldHookRedirection) {
-        [self.sessionManger setTaskWillPerformHTTPRedirectionBlock:^NSURLRequest * _Nonnull(NSURLSession * _Nonnull session, NSURLSessionTask * _Nonnull task, NSURLResponse * _Nonnull response, NSURLRequest * _Nonnull request) {
+    
+    [self.sessionManger setTaskWillPerformHTTPRedirectionBlock:^NSURLRequest * _Nonnull(NSURLSession * _Nonnull session, NSURLSessionTask * _Nonnull task, NSURLResponse * _Nonnull response, NSURLRequest * _Nonnull request) {
+        //是否允许Hook重定向方法
+        if (task.taskIdentifier == requestModel.requestTask.taskIdentifier && requestModel.shouldHookRedirection) {
             return nil;
-        }];
-    } else {
-        [self.sessionManger setTaskWillPerformHTTPRedirectionBlock:nil];
-    }
+        } else {
+            return request;
+        }
+    }];
     self.sessionManger.responseSerializer = [self responseSerializerWithRequestModel:requestModel];
     NSAssert(requestModel.requestTask != nil, @"requestTask should not be nil");
     [self.requestAgent addRequestModel:requestModel];
@@ -313,20 +314,26 @@
     if (![requestModel statusCodeValidator] && requestModel.httpURLResponse) {
         responseError = [NSError errorWithDomain:@"com.huami.statuscode.validation" code:requestModel.responseStatusCode userInfo:@{NSLocalizedDescriptionKey:@"Invalid status code"}];
     }
-    //2、校验responseObject不能为NSNull class
-    if (!responseError && [responseObject isKindOfClass:[NSNull class]]) {
-        responseError = [NSError wsResponseFormatError];
+    //2、如果允许重定向，需要hook住
+    if (requestModel.shouldHookRedirection && requestModel.responseStatusCode >= 300 && requestModel.responseStatusCode < 400) {
+        NSString *locationString = requestModel.httpURLResponse.allHeaderFields[@"Location"];
+        NSString *queryString = [NSURL URLWithString:locationString].query;
+        requestModel.responseRawObject = [WSNetworkTool dictionaryWithQueryString:queryString];
     }
     
-    //3、如果是json结构，选择进行强校验
+    //3、校验responseObject不能为NSNull class
+    if (!responseError || [requestModel.responseRawObject isKindOfClass:[NSNull class]]) {
+        responseError = [NSError wsResponseFormatError];
+    }
+    //4、如果是json结构，选择进行强校验
     if (!responseError && [requestModel responseSerializerType] == WSResponseMIMETypeJson && [requestModel jsonModelValidator]) {
         //对json结构进行强校验
-       BOOL validJson = [WSNetworkTool validateJsonObject:responseObject withValidJsonModel:[requestModel jsonModelValidator]];
+       BOOL validJson = [WSNetworkTool validateJsonObject:requestModel.responseRawObject withValidJsonModel:[requestModel jsonModelValidator]];
         if (!validJson) {
             responseError = [NSError wsResponseFormatError];
         }
     }
-    //4、自定义校验
+    //5、自定义校验
     if (!responseError) {
         responseError = [requestModel cumstomResposeRawObjectValidator];
     }

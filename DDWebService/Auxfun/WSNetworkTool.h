@@ -54,4 +54,13 @@
  */
 + (BOOL)canResumeDwonloadDataWithDownloadPath:(NSString *)downloadPath;
 
+/**
+ 将Query字符串转为字典
+ 
+ @param queryString NSString
+ @return NSDictionary
+ */
++ (NSDictionary *)dictionaryWithQueryString:(NSString *)queryString;
+    
+
 @end

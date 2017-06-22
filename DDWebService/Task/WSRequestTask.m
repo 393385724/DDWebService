@@ -147,7 +147,11 @@
 #pragma mark - response validator
 
 - (BOOL)statusCodeValidator {
-    return self.responseStatusCode >= 200 && self.responseStatusCode < 300;
+    if (self.shouldHookRedirection) {
+        return self.responseStatusCode >= 200 && self.responseStatusCode < 400;
+    } else {
+        return self.responseStatusCode >= 200 && self.responseStatusCode < 300;
+    }
 }
 
 - (id)jsonModelValidator {
