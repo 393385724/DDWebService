@@ -18,54 +18,66 @@
  - WSHTTPMethodPUT:    PUT请求
  - WSHTTPMethodDELETE: DELETE请求
  - WSHTTPMethodPATCH:  PATCH请求
+ - WSHTTPMethodHEAD :  HEAD请求
  */
 typedef NS_ENUM(NSUInteger, WSHTTPMethod) {
     WSHTTPMethodGET,
     WSHTTPMethodPOST,
     WSHTTPMethodPUT,
     WSHTTPMethodDELETE,
-    WSHTTPMethodPATCH
+    WSHTTPMethodPATCH,
+    WSHTTPMethodHEAD
 };
 
 /**
- Data数据请求形式
-
- - WSRequestDataMethodNone:      没有Data数据
- - WSRequestDataMethodMultipart: Multipart形式上传
- - WSRequestDataMethodBodyData:  HTTP Body形式上传
- - WSRequestDataMethodDownload:  下载数据
+ 请求体中Json最外层数据结构的类型
+ 
+ - WSHTTPBodyJsonTypeDictionary: 字典结构
+ - WSHTTPBodyJsonTypeArray:      数组结构
  */
-typedef NS_ENUM(NSUInteger, WSRequestDataMethod) {
-    WSRequestDataMethodNone,
-    WSRequestDataMethodMultipart,
-    WSRequestDataMethodBodyData,
-    WSRequestDataMethodDownload,
+typedef NS_ENUM(NSUInteger, WSHTTPBodyJsonType) {
+    WSHTTPBodyJsonTypeDictionary,
+    WSHTTPBodyJsonTypeArray,
 };
 
-
 /**
- 请求格式
-
- - WSHTTPReqeustFormatBinary: 二进制
- - WSHTTPReqeustFormatJson:   JsonModel
- - WSHTTPReqeustFormatPlist:  Plist
+ 上传数据方式
+ 
+ - WSUploadDataMethodMultipart: Multipart形式上传
+ - WSUploadDataMethodHTTPBody:  HTTP Body形式上传
  */
-typedef NS_ENUM(NSUInteger, WSHTTPReqeustFormat) {
-    WSHTTPReqeustFormatBinary,
-    WSHTTPReqeustFormatJson, //默认GET/HEAD/DELETE参数都放在Query，其他请求方式参数放在body
-    WSHTTPReqeustFormatPlist,
+typedef NS_ENUM(NSUInteger, WSUploadDataMethod) {
+    WSUploadDataMethodMultipart,
+    WSUploadDataMethodHTTPBody,
 };
 
 
 /**
- HTTP Body中json结构
+ 请求支持的类型(Content-Type)
 
- - HMHTTPBodyJsonTypeDictionary: 字典结构
- - HMHTTPBodyJsonTypeArray:      数组结构
+ - WSHTTPReqeustFormatBinary:   application/x-www-form-urlencoded
+ - WSRequestContentTypeJson:    application/json
+ - WSRequestContentTypeXPlist:  application/x-plist
  */
-typedef NS_ENUM(NSUInteger, HMHTTPBodyJsonType) {
-    HMHTTPBodyJsonTypeDictionary,
-    HMHTTPBodyJsonTypeArray,
+typedef NS_ENUM(NSUInteger, WSRequestContentType) {
+    WSRequestContentTypeURLEncoded,
+    WSRequestContentTypeJson,
+    WSRequestContentTypeXPlist,
+};
+
+/**
+ 请求返回的数据类型(MIMEType)
+ 
+ - WSResponseMIMETypeJson:          application/json、text/json、text/javascript
+ - WSResponseMIMETypeXML:           application/xml、text/xml
+ - WSResponseMIMETypePlist:         application/x-plist
+ - WSResponseMIMETypeImage:         image/tiff、image/jpeg、image/gif、image/png、image/ico、image/x-icon、image/bmp、image/x-bmp、image/x-xbitmap、image/x-win-bitmap
+ */
+typedef NS_ENUM(NSUInteger, WSResponseMIMEType) {
+    WSResponseMIMETypeJson,
+    WSResponseMIMETypeXML,
+    WSResponseMIMETypePlist,
+    WSResponseMIMETypeImage,
 };
 
 #endif /* WSTypeDefines_h */

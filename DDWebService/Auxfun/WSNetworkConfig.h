@@ -8,7 +8,34 @@
 
 #import <Foundation/Foundation.h>
 
+@class AFSecurityPolicy;
+
+typedef NSString * (^WSQueryStringSerializationBlock)(NSURLRequest *request, id parameters, NSError *__autoreleasing *error);
+
+/**
+ 对全局网络请
+ */
 @interface WSNetworkConfig : NSObject
+
+/**
+ 全局统一的域名,默认nil
+ */
+@property (nonatomic, copy) NSString *baseUrl;
+
+/**
+ 安全策略
+ */
+@property (nonatomic, strong) AFSecurityPolicy *securityPolicy;
+
+/**
+ 自定义QueryString序列化规则
+ */
+@property (nonatomic, copy) WSQueryStringSerializationBlock queryStringSerializationBlock;
+
+/**
+ 全局统一的网络请求配置，不配置使用默认
+ */
+@property (nonatomic, strong) NSURLSessionConfiguration *sessionConfiguration;
 
 /**
  显示详细的请求log，默认NO
@@ -21,10 +48,14 @@
 @property (nonatomic, assign) BOOL shouldDeadlinessLog;
 
 /**
- 全局统一的网络请求配置，不配置使用默认
+ 唯一初始化方法
+ 
+ @return WSNetworkConfig
  */
-@property (nonatomic, strong) NSURLSessionConfiguration *sessionConfiguration;
-
 + (WSNetworkConfig *)sharedInstance;
 
+
+
+- (instancetype)init NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
 @end

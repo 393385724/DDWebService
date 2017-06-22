@@ -36,8 +36,8 @@ static const void *WSErrorPromptNameKey = &WSErrorPromptNameKey;
 }
 
 + (nonnull NSError *)wsResponseFormatError {
-    NSString *prompt = @"response format error (null or not dictionary)";
-    return [self wsErrorWithDomain:@"wsResponseError" code:NSURLErrorCannotParseResponse prompt:prompt userInfo:@{NSLocalizedDescriptionKey:prompt}];
+    NSString *prompt = @"response format error (null or not json format)";
+    return [self wsErrorWithDomain:@"com.huami.response.validation" code:NSURLErrorBadServerResponse prompt:prompt userInfo:@{NSLocalizedDescriptionKey:prompt}];
 }
 
 #pragma mark - Private Methods

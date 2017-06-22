@@ -26,139 +26,193 @@ typedef void (^WSConstructingBlock)(id<AFMultipartFormData> formData);
  */
 @interface WSRequestTask : NSObject
 
-#pragma mark - CallBack Propertys
-
-/**@brief 强烈建议这种形式！！！ 设置网络回调接收者 同时实现block和delegate,则block设置会失效*/
+#pragma mark - 回调相关属性
+/**
+ 设置网络回调接收者 同时实现block和delegate,则block设置会失效
+ */
 @property (nonatomic, weak) id<WSRequestCallbackProtocol> delegate;
-
-/**@brief  WSProgressHandle 只有上传和下载data时候才是有效的*/
+/**
+ 下载进度条，只有当downloadPath不为nil的时候设置才有效
+ */
 @property (nonatomic, copy) WSProgressHandle progressHandle;
-
-/**@brief  WSCompleteHandle 同时实现block和delegate,则block设置会失效*/
+/**
+ WSCompleteHandle 同时实现block和delegate,则block设置会失效
+ */
 @property (nonatomic, copy, readonly) WSCompleteHandle completeHandle;
 
-/**@brief  是否允许截获重定向, 默认NO*/
+#pragma mark - 请求之前的配置属性
+/**
+ 完整的请求URL
+ */
+@property (nonatomic, readonly) NSString *requestUrlString;
+/**
+ 自定义的Header
+ */
+@property (nonatomic, readonly) NSMutableDictionary <NSString *, NSString *> *headerDictionary;
+/**
+ 自定义的上行参数, NSMutableDictionary or NSMutableArray 由bodyJsonType决定类型
+ */
+@property (nonatomic, readonly) id parameter;
+/**
+ 是否允许截获重定向, 默认NO
+ */
 @property (nonatomic, assign) BOOL shouldHookRedirection;
+/**
+ 是否是取消的状态
+ */
+@property (nonatomic, readonly, getter=isCancelled) BOOL cancelled;
+/**
+ 当前是否正在执行
+ */
+@property (nonatomic, readonly, getter=isExecuting) BOOL executing;
+/**
+ 下载数据路径
+ */
+@property (nonatomic, copy) NSString *downloadPath;
 
-#pragma mark - Cache Propertys
+#pragma mark - 返回结果相关属性
 
-/**@brief 请求的唯一标识，默认为完整的URL，子类可自定义*/
-@property (nonatomic, copy, readonly) NSString *taskIdentifier;
-
-/**@brief  HTTP请求的完整的URLString eg.baseUrl/apiName*/
-@property (nonatomic, copy, readonly) NSString *requestUrlString;
-
-/**@brief  是否是加载的本地数据 default NO*/
-@property (nonatomic, assign) BOOL shouldLoadLocalOnly;
-
-/**@brief  是否正在加载数据*/
-@property (nonatomic, assign, readonly, getter=isLoading) BOOL loading;
-
-/**@brief 自定义的HEADER*/
-@property (nonatomic, strong, readonly) NSMutableDictionary *headerDictionary;
-
-/**@brief 自定义的parameter(可变字典or数组),根据bodyJsonType确定类型*/
-@property (nonatomic, strong, readonly) id parameter;
-
-
-/** @brief  请求结束返回的HTTP响应结果*/
-@property (nonatomic, strong, readonly) NSHTTPURLResponse *httpURLResponse;
-
-/** @brief  请求结束返回的单个数据 eg 原始数据 or 已经解析的对象*/
+/**
+ 当前的请求task
+ */
+@property (nonatomic, strong) NSURLSessionTask *requestTask;
+/**
+ 请求结束返回的HTTP响应结果
+ */
+@property (nonatomic, readonly) NSHTTPURLResponse *httpURLResponse;
+/**
+ 未请求结束前，获取改值为nil
+ */
+@property (nonatomic, readonly) NSInteger responseStatusCode;
+/**
+ 服务器请求返回的原始数据
+ */
+@property (nonatomic, strong) id responseRawObject;
+/**
+ 成功解析response中的单个对象or对象字典
+ */
 @property (nonatomic, strong) id resultItem;
-
-/** @brief  请求结束返回的一组数据 eg 解析成model数组*/
+/**
+ 成功解析出来的多个对象,model数组
+ */
 @property (nonatomic, strong) NSArray *resultItems;
 
 #pragma mark - Common config
 /**
- * @brief  URL的Host eg. http://www.baidu.com
+ URL的Host eg. http://www.baidu.com
  */
 - (NSURL *)baseUrl;
 
-/**@brief  api名字 eg. /user/info*/
+/**
+ URI eg. /user/info
+ */
 - (NSString *)apiName;
 
-/**@brief  HTTP请求格式, default Json*/
-- (WSHTTPReqeustFormat)requestFormat;
-
-/**@brief  HTTP请求方法, default GET*/
-- (WSHTTPMethod)requestMethod;
-
-/**@brief api版本号*/
+/**
+ api 版本号
+ */
 - (NSString *)apiVersion;
 
-/**@brief 校验上行参数，避免由于参数错误导致发请求*/
-- (NSError *)validLocalHeaderField NS_REQUIRES_SUPER;
+/**
+ 请求方法 @see WSHTTPMethod  default WSHTTPMethodGET
+ */
+- (WSHTTPMethod)requestMethod;
 
-/**@brief 在HTTP报头添加的自定义参数*/
-- (void)configureHeaderField NS_REQUIRES_SUPER;
+/**
+ 上传数据方式,@see WSUploadDataMethod 默认WSUploadDataMethodMultipart
+ */
+- (WSUploadDataMethod)uploadDataMethod;
 
-/**@brief 校验上行参数，避免由于参数错误导致发请求*/
-- (NSError *)validLocalParameterField NS_REQUIRES_SUPER;
-
-/**@brief 在HTTP Body中上行参数Json Model结构(Dictionary or Array)，默认HMHTTPBodyJsonTypeDictionary*/
-- (HMHTTPBodyJsonType)bodyJsonType;
-
-/**@brief 在HTTP请求中的参数*/
-- (void)configureParameterField NS_REQUIRES_SUPER;
-
-#pragma mark - Data config
-
-/**@brief  上传Data数据方式, default WSRequestDataMethodNone*/
-- (WSRequestDataMethod)requestDataMethod;
-
-/**@brief 上传文件子类需要实现该方法,上传文件给形式需要实现requestDataUploadMethod
+/**
+ 上传文件子类需要实现该方法,上传文件给形式需要实现uploadDataMethod
  @code
  void(^dataBlock)(id<AFMultipartFormData>)  = ^(id<AFMultipartFormData> formData){
  [formData appendPartWithFileData:UIImageJPEGRepresentation(_image,1.0) name:@"file" fileName:@"pic.jpg" mimeType:@"image/jpeg"];
  };
  return dataBlock;
  @endcode
- @see [self requestDataMethod]
  */
 - (WSConstructingBlock)constructingBodyBlock;
 
-/** @brief 文件下载的最终路径*/
-- (NSURL *)downLoadDestinationPath;
+/**
+ 请求序列化 @see WSRequestContentType default WSRequestContentTypeURLEncoded
+ */
+- (WSRequestContentType)requestSerializerType;
+
+/**
+ 请求体重最外层Json结构 @see WSHTTPBodyJsonType 默认 WSHTTPBodyJsonTypeDictionary
+ */
+- (WSHTTPBodyJsonType)bodyJsonType;
+
+/**
+ 请求结果序列化 @see WSResponseMIMEType default WSResponseMIMETypeJson
+ */
+- (WSResponseMIMEType)responseSerializerType;
+
+#pragma mark - Parameter config
+
+/**
+ 校验自定义HEAD参数，避免由于参数错误导致发请求
+ */
+- (NSError *)validLocalHeaderField NS_REQUIRES_SUPER;
+
+/**
+ 在HTTP报头添加的自定义参数 @see headerDictionary
+ */
+- (void)configureHeaderField NS_REQUIRES_SUPER;
+
+/**
+ 校验上行参数，避免由于参数错误导致发请求
+ */
+- (NSError *)validLocalParameterField NS_REQUIRES_SUPER;
+
+/**
+ 在HTTP请求中的参数 @see parameter
+ */
+- (void)configureParameterField NS_REQUIRES_SUPER;
 
 #pragma mark - 策略
 /**
- * @brief  请求超时的时间，默认采用统一session时间
+ 请求超时时间,默认60s
  */
 - (NSTimeInterval)timeoutInterval;
 
 /**
- * @brief  允许发送请求的最小时间间隔,默认0
+ 允许使用数据流量, 默认YES
  */
-- (NSTimeInterval)requestTTL;
-
-/**
- *  @brief 是否允许对请求做缓存，默认NO
- *
- *  @return YES ? 允许 ：不允许
- */
-- (BOOL)shouldAllowCache;
+- (BOOL)allowsCellularAccess;
 
 #pragma mark - load
-
-///**@brief 本地加载数据,纯get请求有效*/
-//- (void)loadLocalWithComplateHandle:(WSCompleteHandle)complateHandle NS_REQUIRES_SUPER;
-
-/**@brief 发送网络请求*/
+/**
+ 发送网络请求
+ */
 - (void)load NS_REQUIRES_SUPER;
-
-/**@brief 发送网络请求,并实现回调*/
+/**
+ 发送网络请求并实现请求回调
+ */
 - (void)loadWithComplateHandle:(WSCompleteHandle)complateHandle NS_REQUIRES_SUPER;
-
-/**@brief 取消当前的请求*/
+/**
+ 取消网络请求
+ */
 - (void)cancel NS_REQUIRES_SUPER;
 
-#pragma mark - Web Servcie Response
+#pragma mark - response校验器
 
-/** Web Servcie Response 最后调用super*/
-- (void)requestDidSuccessWithURLResponse:(NSHTTPURLResponse *)urlResponse responseObject:(id)responseObject NS_REQUIRES_SUPER;
-
-- (void)requestDidFailWithURLResponse:(NSHTTPURLResponse *)urlResponse responseObject:(id)responseObject error:(NSError *)error NS_REQUIRES_SUPER;
+/**
+ 用于校验responseStatusCode是否正确[200-300)
+ */
+- (BOOL)statusCodeValidator;
+/**
+ 定义Response模板，对json做类型强校验
+ */
+- (id)jsonModelValidator;
+/**
+ 自定义对服务器返回的请求结果做校验
+ */
+- (NSError *)cumstomResposeRawObjectValidator NS_REQUIRES_SUPER;
+/**
+ 清理block，避免循环引用,子类及外部不可调用
+ */
+- (void)clearCompletionBlock;
 
 @end
