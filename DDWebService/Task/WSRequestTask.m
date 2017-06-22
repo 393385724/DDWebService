@@ -20,8 +20,6 @@
 /**@brief 自定义的parameter*/
 @property (nonatomic, strong, readwrite) id parameter;
 
-@property (nonatomic, assign, readwrite, getter=isLoading) BOOL loading;
-
 /**@brief 实现请求的回调*/
 @property (nonatomic, copy) WSCompleteHandle completeHandle;
 
@@ -37,38 +35,64 @@
 - (instancetype)init{
     self = [super init];
     if (self) {
-        self.loading = NO;
+        self.shouldHookRedirection = NO;
     }
     return self;
 }
 
-#pragma mark - request config
+#pragma mark - Request and Response Information
 
-- (NSURL *)baseUrl{
-    NSAssert(NO, @"subclass must implement @selector(baseUrl)");
+- (NSHTTPURLResponse *)httpURLResponse {
+    return (NSHTTPURLResponse *)self.requestTask.response;
+}
+
+- (NSInteger)responseStatusCode {
+    return self.httpURLResponse.statusCode;
+}
+
+- (NSDictionary *)responseHeaders {
+    return self.httpURLResponse.allHeaderFields;
+}
+
+#pragma mark - Common config
+
+- (NSURL *)baseUrl {
     return nil;
 }
 
-- (NSString *)apiName{
+- (NSString *)apiName {
     return @"";
 }
 
-- (WSHTTPReqeustFormat)requestFormat{
-    return WSHTTPReqeustFormatJson;
+- (NSString *)apiVersion {
+    return @"0.0";
 }
 
-- (WSHTTPMethod)requestMethod{
-    NSAssert(NO, @"subclass must implement @selector(requestMethod)");
+- (WSHTTPMethod)requestMethod {
     return WSHTTPMethodGET;
 }
 
-- (WSRequestDataMethod)requestDataMethod{
-    return WSRequestDataMethodNone;
+- (WSUploadDataMethod)uploadDataMethod {
+    return WSUploadDataMethodMultipart;
 }
 
-- (NSString *)apiVersion{
-    return @"0.0";
+- (WSConstructingBlock)constructingBodyBlock {
+    return nil;
 }
+
+- (WSRequestContentType)requestSerializerType {
+    return WSRequestContentTypeJson;
+}
+
+- (WSHTTPBodyJsonType)bodyJsonType {
+    return WSHTTPBodyJsonTypeDictionary;
+}
+
+- (WSResponseMIMEType)responseSerializerType {
+    return WSResponseMIMETypeJson;
+}
+
+#pragma mark -  Parameter
 
 - (NSError *)validLocalHeaderField{
     return nil;
@@ -82,50 +106,24 @@
     return nil;
 }
 
-- (HMHTTPBodyJsonType)bodyJsonType{
-    return HMHTTPBodyJsonTypeDictionary;
-}
-
 - (void)configureParameterField{
-    if ([self bodyJsonType] == HMHTTPBodyJsonTypeDictionary) {
+    if ([self bodyJsonType] == WSHTTPBodyJsonTypeDictionary) {
         self.parameter = [[NSMutableDictionary alloc] init];
     } else {
         self.parameter = [[NSMutableArray alloc] init];
     }
 }
 
-- (WSConstructingBlock)constructingBodyBlock{
-    return nil;
-}
-
-- (NSURL *)downLoadDestinationPath{
-    NSAssert(NO, @"subclass must implement @selector(downLoadDestinationPath) and requestDataMethod must return WSRequestDataMethodDownload ");
-    return nil;
-}
-
 #pragma mark - 策略
 - (NSTimeInterval)timeoutInterval{
-    return -1;
+    return 60;
 }
 
-- (NSTimeInterval)requestTTL{
-    return 0;
-}
-
-- (BOOL)shouldAllowCache{
-    return NO;
+- (BOOL)allowsCellularAccess {
+    return YES;
 }
 
 #pragma mark - load
-
-- (void)loadLocalWithComplateHandle:(WSCompleteHandle)complateHandle{
-    if ([self requestDataMethod] == WSRequestDataMethodNone && [self requestMethod] == WSHTTPMethodGET) {
-        self.completeHandle = complateHandle;
-        [self loadLocal:YES];
-    } else {
-        [self loadLocalWithComplateHandle:complateHandle];
-    }
-}
 
 - (void)loadWithComplateHandle:(WSCompleteHandle)complateHandle{
     self.completeHandle = complateHandle;
@@ -137,68 +135,38 @@
 }
 
 - (void)cancel{
-    [[WSNetWorkClient sharedInstance] cancelWithRequestId:self.taskIdentifier];
+    [[WSNetWorkClient sharedInstance] cancelWithRequestModel:self];
 }
 
 - (void)loadLocal:(BOOL)localData{
-    self.shouldLoadLocalOnly = localData;
-    if (self.isLoading) {
-        NSLog(@"%@ is flying outside︿(￣︶￣)︿",[[self class] description]);
-        return;
-    }
-    //local check
-    NSError *error = [self validLocalHeaderField];
-    if (error) {
-        [self requestDidFailWithURLResponse:nil responseObject:nil error:error];
-        return;
-    }
-    error = [self validLocalParameterField];
-    if (error) {
-        [self requestDidFailWithURLResponse:nil responseObject:nil error:error];
-        return;
-    }
-    [self configureHeaderField];
-    [self configureParameterField];
-    self.loading = YES;
     self.resultItem = nil;
     self.resultItems = nil;
-    [[WSNetWorkClient sharedInstance] loadWithRequestModel:self];
+    [[WSNetWorkClient sharedInstance] addWithRequestModel:self];
 }
 
-#pragma mark - Web Servcie Response
+#pragma mark - response validator
 
-- (void)requestDidSuccessWithURLResponse:(NSHTTPURLResponse *)urlResponse responseObject:(id)responseObject{
-    if ([responseObject isKindOfClass:[NSNull class]]) {
-        NSError *error = [NSError wsResponseFormatError];
-        [self requestDidFailWithURLResponse:urlResponse responseObject:responseObject error:error];
-        return;
-    }
-    self.httpURLResponse = urlResponse;
-    self.loading = NO;
-    if (self.delegate && [self.delegate respondsToSelector:@selector(requestDidFinished:localResult:)]) {
-        [self.delegate requestDidFinished:self localResult:self.shouldLoadLocalOnly];
-    } else if (self.completeHandle){
-        self.completeHandle(self,self.shouldLoadLocalOnly,nil);
-        self.completeHandle = nil;
-    }
+- (BOOL)statusCodeValidator {
+    return self.responseStatusCode >= 200 && self.responseStatusCode < 300;
 }
 
-- (void)requestDidFailWithURLResponse:(NSHTTPURLResponse *)urlResponse responseObject:(id)responseObject error:(NSError *)error{
-    self.httpURLResponse = urlResponse;
-    self.loading = NO;
-    if (self.delegate && [self.delegate respondsToSelector:@selector(requestDidFailed:localResult:error:)]) {
-        [self.delegate requestDidFailed:self localResult:self.shouldLoadLocalOnly error:error];
-    } else if (self.completeHandle){
-        self.completeHandle(self,self.shouldLoadLocalOnly,error);
-        self.completeHandle = nil;
-    }
+- (id)jsonModelValidator {
+    return nil;
+}
+
+- (NSError *)cumstomResposeRawObjectValidator {
+    return nil;
+}
+
+#pragma mark - CallBack
+
+- (void)clearCompletionBlock {
+    self.delegate = nil;
+    self.completeHandle = nil;
+    self.progressHandle = nil;
 }
 
 #pragma mark - Getter and setter
-
-- (NSString *)taskIdentifier{
-    return self.requestUrlString;
-}
 
 - (NSString *)requestUrlString{
     if (!_requestUrlString) {
@@ -211,4 +179,11 @@
     return _requestUrlString;
 }
 
+- (BOOL)isCancelled {
+    return self.requestTask.state == NSURLSessionTaskStateCanceling;
+}
+
+- (BOOL)isExecuting {
+    return self.requestTask.state == NSURLSessionTaskStateRunning;
+}
 @end

@@ -8,120 +8,70 @@
 
 #import "WSRequestAgent.h"
 #import "WSRequestTask.h"
+#include <pthread/pthread.h>
+
+#define InitLock()      pthread_mutex_init(&_lock, NULL);
+#define Lock()          pthread_mutex_lock(&_lock);
+#define Unlock()        pthread_mutex_unlock(&_lock);
 
 @interface WSRequestAgent ()
 
 /**
  *  @brief 对request持有的池子
  */
-@property (nonatomic, strong) NSMutableDictionary *requestPool;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, WSRequestTask *> *requestPool;
 
 /**
- *  @brief sessionTask池子
+ 线程锁
  */
-@property (nonatomic, strong) NSMutableDictionary *taskPool;
-
-/**
- *  @brief 存储一个request上次发起的时间
- */
-@property (nonatomic, strong) NSMutableDictionary *lastUpdateDatePool;
+@property (nonatomic, assign) pthread_mutex_t lock;
 
 @end
 
 @implementation WSRequestAgent
 
-+ (WSRequestAgent *)sharedInstance {
-    static WSRequestAgent *sharedInstance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[self alloc] init];
-    });
-    return sharedInstance;
-}
-
-- (NSArray *)allRequestIds{
-    return [self.requestPool allKeys];
-}
-
-- (BOOL)shouldLoadRequestModel:(WSRequestTask *)requestModel{
-    if (!requestModel) {
-        return NO;
-    }
-    if (requestModel.shouldLoadLocalOnly) {
-        return YES;
-    }
-    NSString *requestId = requestModel.taskIdentifier;
-    NSDate *lastUpdate = [self.lastUpdateDatePool objectForKey:requestId];
-    if (!lastUpdate) {
-        if ([requestModel requestTTL] > 0) {
-            [self.lastUpdateDatePool setObject:[NSDate date] forKey:requestId];
-        }
-        return YES;
-    }
-    NSTimeInterval seconds = [[NSDate date] timeIntervalSinceDate:lastUpdate];
-    if (seconds > [requestModel requestTTL]) {
-        [self.lastUpdateDatePool setObject:[NSDate date] forKey:requestId];
-        return YES;
-    }
-    return NO;
-}
-
-- (void)addDataTask:(NSURLSessionTask *)dataTask requestModel:(WSRequestTask *)requestModel{
-    if (!dataTask || !requestModel) {
-        return;
-    }
-    NSString *requestId = requestModel.taskIdentifier;
-    [self.taskPool setObject:dataTask forKey:requestId];
-    [self.requestPool setObject:requestModel forKey:requestId];
-}
-
-- (NSURLSessionTask *)dataTaskWithRequestId:(NSString *)requestId{
-    if (![requestId length] || !requestId) {
-        return nil;
-    }
-    return [self.taskPool objectForKey:requestId];
-}
-
-- (WSRequestTask *)requestModelWithRequestId:(NSString *)requestId{
-    if (![requestId length] || !requestId) {
-        return nil;
-    }
-    return [self.requestPool objectForKey:requestId];
-}
-
-- (void)removeRequestId:(NSString *)requestId success:(BOOL)success{
-    if (![requestId length] || !requestId) {
-        return;
-    }
-    [self.taskPool removeObjectForKey:requestId];
-    [self.requestPool removeObjectForKey:requestId];
-    WSRequestTask *requestModel = [self requestModelWithRequestId:requestId];
-    if (!success && [requestModel requestTTL] > 0) {
-        [self.lastUpdateDatePool removeObjectForKey:requestId];
-    }
-}
-
-#pragma mark - Getter and Setter
-
-- (NSMutableDictionary *)requestPool{
-    if (!_requestPool) {
+- (instancetype)init {
+    self = [super init];
+    if (self) {
         _requestPool = [[NSMutableDictionary alloc] init];
+        InitLock();
     }
-    return _requestPool;
+    return self;
 }
 
-- (NSMutableDictionary *)taskPool{
-    if (!_taskPool) {
-        _taskPool = [[NSMutableDictionary alloc] init];
-    }
-    return _taskPool;
+- (NSArray <WSRequestTask *>*)allRequestModles{
+    Lock()
+    NSArray <WSRequestTask *> *models = [self.requestPool allValues];
+    Unlock()
+    return models;
 }
 
-- (NSMutableDictionary *)lastUpdateDatePool{
-    if (!_lastUpdateDatePool) {
-        _lastUpdateDatePool = [[NSMutableDictionary alloc] init];
+- (void)addRequestModel:(WSRequestTask *)requestModel{
+    Lock()
+    if (!requestModel) {
+        return;
     }
-    return _lastUpdateDatePool;
+    [self.requestPool setObject:requestModel forKey:[@(requestModel.requestTask.taskIdentifier) stringValue]];
+    Unlock()
+}
+
+- (WSRequestTask *)requestModelWithTaskIdentifier:(NSString *)taskIdentifier {
+    Lock()
+    if (![taskIdentifier length] || !taskIdentifier) {
+        return nil;
+    }
+    WSRequestTask *task = [self.requestPool objectForKey:taskIdentifier];
+    Unlock();
+    return task;
+}
+
+- (void)removeRequestModel:(WSRequestTask *)requestModel {
+    Lock()
+    if (!requestModel) {
+        return;
+    }
+    [self.requestPool removeObjectForKey:[@(requestModel.requestTask.taskIdentifier) stringValue]];
+    Unlock()
 }
 
 @end

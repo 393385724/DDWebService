@@ -7,6 +7,7 @@
 //
 
 #import "WSNetworkConfig.h"
+#import <AFNetworking/AFNetworking.h>
 #import "NSString+WebService.m"
 
 @implementation WSNetworkConfig
@@ -24,6 +25,7 @@
     self = [super init];
     if (self) {
         self.shouldDeadlinessLog = YES;
+        _securityPolicy = [AFSecurityPolicy defaultPolicy];
         NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
         sessionConfiguration.HTTPMaximumConnectionsPerHost = 4;
         sessionConfiguration.timeoutIntervalForRequest = 30;

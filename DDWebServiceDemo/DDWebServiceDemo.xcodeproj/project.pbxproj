@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		908C5BD51EFA7FF000C12464 /* WSNetworkTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 908C5BD41EFA7FF000C12464 /* WSNetworkTool.m */; };
 		90A9D3691EAF2AC000AD531A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3681EAF2AC000AD531A /* main.m */; };
 		90A9D36C1EAF2AC000AD531A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D36B1EAF2AC000AD531A /* AppDelegate.m */; };
 		90A9D36F1EAF2AC000AD531A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D36E1EAF2AC000AD531A /* ViewController.m */; };
@@ -20,15 +21,20 @@
 		90A9D3C01EAF316400AD531A /* WSNetworkMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3AD1EAF316400AD531A /* WSNetworkMonitor.m */; };
 		90A9D3C11EAF316400AD531A /* WSQueryFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3AF1EAF316400AD531A /* WSQueryFormat.m */; };
 		90A9D3C21EAF316400AD531A /* WSRequestAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3B11EAF316400AD531A /* WSRequestAgent.m */; };
-		90A9D3C31EAF316400AD531A /* WSRequestCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3B31EAF316400AD531A /* WSRequestCache.m */; };
 		90A9D3C41EAF316400AD531A /* WSNetWorkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3B61EAF316400AD531A /* WSNetWorkClient.m */; };
 		90A9D3C51EAF316400AD531A /* WSRequestTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3BA1EAF316400AD531A /* WSRequestTask.m */; };
+		90E7DB8D1EFB5FE8007F9786 /* HMBaseRequestTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E7DB8C1EFB5FE8007F9786 /* HMBaseRequestTask.m */; };
+		90E7DB901EFB61E3007F9786 /* HMUserInfoRequestTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E7DB8F1EFB61E3007F9786 /* HMUserInfoRequestTask.m */; };
+		90E7DB931EFB67DD007F9786 /* HMTrainingPopularTopicsRequestTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E7DB921EFB67DD007F9786 /* HMTrainingPopularTopicsRequestTask.m */; };
+		90E7DB9C1EFBAEAF007F9786 /* HMDownLoadRequestTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E7DB9B1EFBAEAF007F9786 /* HMDownLoadRequestTask.m */; };
 		ED8F56DCC90FC1CF356FCF6A /* libPods-DDWebServiceDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7CAA1904910192850496F94 /* libPods-DDWebServiceDemo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		09795391755D6316AD2B5FD2 /* Pods-DDWebServiceDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DDWebServiceDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-DDWebServiceDemo/Pods-DDWebServiceDemo.release.xcconfig"; sourceTree = "<group>"; };
 		0F4FA5BA4E117B26FDD8A7E3 /* Pods-DDWebServiceDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DDWebServiceDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DDWebServiceDemo/Pods-DDWebServiceDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		908C5BD31EFA7FF000C12464 /* WSNetworkTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WSNetworkTool.h; sourceTree = "<group>"; };
+		908C5BD41EFA7FF000C12464 /* WSNetworkTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WSNetworkTool.m; sourceTree = "<group>"; };
 		90A9D3641EAF2AC000AD531A /* DDWebServiceDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DDWebServiceDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90A9D3681EAF2AC000AD531A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		90A9D36A1EAF2AC000AD531A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -53,14 +59,20 @@
 		90A9D3AF1EAF316400AD531A /* WSQueryFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSQueryFormat.m; sourceTree = "<group>"; };
 		90A9D3B01EAF316400AD531A /* WSRequestAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSRequestAgent.h; sourceTree = "<group>"; };
 		90A9D3B11EAF316400AD531A /* WSRequestAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSRequestAgent.m; sourceTree = "<group>"; };
-		90A9D3B21EAF316400AD531A /* WSRequestCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSRequestCache.h; sourceTree = "<group>"; };
-		90A9D3B31EAF316400AD531A /* WSRequestCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSRequestCache.m; sourceTree = "<group>"; };
 		90A9D3B51EAF316400AD531A /* WSNetWorkClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSNetWorkClient.h; sourceTree = "<group>"; };
 		90A9D3B61EAF316400AD531A /* WSNetWorkClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSNetWorkClient.m; sourceTree = "<group>"; };
 		90A9D3B81EAF316400AD531A /* WSRequestCallbackProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSRequestCallbackProtocol.h; sourceTree = "<group>"; };
 		90A9D3B91EAF316400AD531A /* WSRequestTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSRequestTask.h; sourceTree = "<group>"; };
 		90A9D3BA1EAF316400AD531A /* WSRequestTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSRequestTask.m; sourceTree = "<group>"; };
 		90A9D3BB1EAF316400AD531A /* WSTypeDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSTypeDefines.h; sourceTree = "<group>"; };
+		90E7DB8B1EFB5FE8007F9786 /* HMBaseRequestTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HMBaseRequestTask.h; sourceTree = "<group>"; };
+		90E7DB8C1EFB5FE8007F9786 /* HMBaseRequestTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HMBaseRequestTask.m; sourceTree = "<group>"; };
+		90E7DB8E1EFB61E3007F9786 /* HMUserInfoRequestTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HMUserInfoRequestTask.h; sourceTree = "<group>"; };
+		90E7DB8F1EFB61E3007F9786 /* HMUserInfoRequestTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HMUserInfoRequestTask.m; sourceTree = "<group>"; };
+		90E7DB911EFB67DD007F9786 /* HMTrainingPopularTopicsRequestTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HMTrainingPopularTopicsRequestTask.h; sourceTree = "<group>"; };
+		90E7DB921EFB67DD007F9786 /* HMTrainingPopularTopicsRequestTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HMTrainingPopularTopicsRequestTask.m; sourceTree = "<group>"; };
+		90E7DB9A1EFBAEAF007F9786 /* HMDownLoadRequestTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HMDownLoadRequestTask.h; sourceTree = "<group>"; };
+		90E7DB9B1EFBAEAF007F9786 /* HMDownLoadRequestTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HMDownLoadRequestTask.m; sourceTree = "<group>"; };
 		D7CAA1904910192850496F94 /* libPods-DDWebServiceDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DDWebServiceDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -109,6 +121,14 @@
 			children = (
 				90A9D36A1EAF2AC000AD531A /* AppDelegate.h */,
 				90A9D36B1EAF2AC000AD531A /* AppDelegate.m */,
+				90E7DB8B1EFB5FE8007F9786 /* HMBaseRequestTask.h */,
+				90E7DB8C1EFB5FE8007F9786 /* HMBaseRequestTask.m */,
+				90E7DB8E1EFB61E3007F9786 /* HMUserInfoRequestTask.h */,
+				90E7DB8F1EFB61E3007F9786 /* HMUserInfoRequestTask.m */,
+				90E7DB911EFB67DD007F9786 /* HMTrainingPopularTopicsRequestTask.h */,
+				90E7DB921EFB67DD007F9786 /* HMTrainingPopularTopicsRequestTask.m */,
+				90E7DB9A1EFBAEAF007F9786 /* HMDownLoadRequestTask.h */,
+				90E7DB9B1EFBAEAF007F9786 /* HMDownLoadRequestTask.m */,
 				90A9D36D1EAF2AC000AD531A /* ViewController.h */,
 				90A9D36E1EAF2AC000AD531A /* ViewController.m */,
 				90A9D3701EAF2AC000AD531A /* Main.storyboard */,
@@ -156,8 +176,8 @@
 				90A9D3AF1EAF316400AD531A /* WSQueryFormat.m */,
 				90A9D3B01EAF316400AD531A /* WSRequestAgent.h */,
 				90A9D3B11EAF316400AD531A /* WSRequestAgent.m */,
-				90A9D3B21EAF316400AD531A /* WSRequestCache.h */,
-				90A9D3B31EAF316400AD531A /* WSRequestCache.m */,
+				908C5BD31EFA7FF000C12464 /* WSNetworkTool.h */,
+				908C5BD41EFA7FF000C12464 /* WSNetworkTool.m */,
 			);
 			path = Auxfun;
 			sourceTree = "<group>";
@@ -303,7 +323,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -314,14 +334,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				90A9D3C11EAF316400AD531A /* WSQueryFormat.m in Sources */,
+				90E7DB931EFB67DD007F9786 /* HMTrainingPopularTopicsRequestTask.m in Sources */,
 				90A9D3BC1EAF316400AD531A /* NSError+WebServie.m in Sources */,
+				90E7DB9C1EFBAEAF007F9786 /* HMDownLoadRequestTask.m in Sources */,
+				908C5BD51EFA7FF000C12464 /* WSNetworkTool.m in Sources */,
 				90A9D3C01EAF316400AD531A /* WSNetworkMonitor.m in Sources */,
+				90E7DB901EFB61E3007F9786 /* HMUserInfoRequestTask.m in Sources */,
+				90E7DB8D1EFB5FE8007F9786 /* HMBaseRequestTask.m in Sources */,
 				90A9D3BF1EAF316400AD531A /* WSNetworkConfig.m in Sources */,
 				90A9D36F1EAF2AC000AD531A /* ViewController.m in Sources */,
 				90A9D3BE1EAF316400AD531A /* WSMultipartFormData.m in Sources */,
 				90A9D3BD1EAF316400AD531A /* NSString+WebService.m in Sources */,
 				90A9D3C41EAF316400AD531A /* WSNetWorkClient.m in Sources */,
-				90A9D3C31EAF316400AD531A /* WSRequestCache.m in Sources */,
 				90A9D36C1EAF2AC000AD531A /* AppDelegate.m in Sources */,
 				90A9D3691EAF2AC000AD531A /* main.m in Sources */,
 				90A9D3C21EAF316400AD531A /* WSRequestAgent.m in Sources */,
@@ -448,6 +472,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = BPBCHD64GW;
 				INFOPLIST_FILE = DDWebServiceDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.huami.DDWebServiceDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -461,6 +486,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = BPBCHD64GW;
 				INFOPLIST_FILE = DDWebServiceDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.huami.DDWebServiceDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";

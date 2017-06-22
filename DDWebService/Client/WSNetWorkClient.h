@@ -11,43 +11,37 @@
 @class WSRequestTask;
 
 /**
- *  @brief 该类对三方或者系统的网络请求做封装，对外不会暴漏请求的具体细节
+ 封装了具体的网络实现，包含请求的拼装，序列化以及response的解析
  */
 @interface WSNetWorkClient : NSObject
-
 /**
- *  @brief 唯一初始化方法
- *
- *  @return 返回WSNetWorkClient对象
+ 唯一初始化方法
+ 
+ @return 返回WSNetWorkClient对象
  */
 + (WSNetWorkClient *)sharedInstance;
 
 /**
- *  @brief 发起一个网络请求
- *
- *  @param requestModel 请求的配置信息
+ 增加一个请求到session并发起请求
+ 
+ @param requestModel WSRequestTask对象
  */
-- (void)loadWithRequestModel:(WSRequestTask *)requestModel;
+- (void)addWithRequestModel:(WSRequestTask *)requestModel;
 
 /**
- *  @brief 判断指定的reqeust是否正在发起请求
- *
- *  @param requestId request的唯一标识
- *
- *  @return YES ？正在发起请求：没有发起国请求或者请求完毕了
+ 取消一个之前已经添加的网络请求
+ 
+ @param requestModel WSRequestTask对象
  */
-- (BOOL)isLoadingWithRequestId:(NSString *)requestId;
+- (void)cancelWithRequestModel:(WSRequestTask *)requestModel;
 
 /**
- *  @brief 取消指定的网络请求
- *
- *  @param requestId 已经发送网络请求的唯一标识
+ 取消所有当前已发送的请求
  */
-- (void)cancelWithRequestId:(NSString *)requestId;
+- (void)cancelAllRequests;
 
-/**
- *  @brief 取消所有正在发送的网络请求
- */
-- (void)cancelAllRequest;
 
+
+- (instancetype)init NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
 @end

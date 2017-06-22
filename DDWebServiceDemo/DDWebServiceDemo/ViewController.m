@@ -7,7 +7,11 @@
 //
 
 #import "ViewController.h"
-#import "WSRequestTask.h"
+
+#import "HMUserInfoRequestTask.h"
+#import "HMTrainingPopularTopicsRequestTask.h"
+#import "HMDownLoadRequestTask.h"
+
 
 @interface ViewController ()
 
@@ -17,14 +21,36 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self testDownLoad];
 }
 
+- (void)testUserInfo{
+    HMUserInfoRequestTask *requestTask = [[HMUserInfoRequestTask alloc] init];
+    [requestTask loadWithComplateHandle:^(WSRequestTask *request, BOOL isLocalResult, NSError *error) {
+        
+    }];
+}
+
+- (void)testTraining{
+    HMTrainingPopularTopicsRequestTask *requestTask = [[HMTrainingPopularTopicsRequestTask alloc] init];
+    [requestTask loadWithComplateHandle:^(WSRequestTask *request, BOOL isLocalResult, NSError *error) {
+        
+    }];
+}
+
+- (void)testDownLoad{
+    HMDownLoadRequestTask *requestTask = [[HMDownLoadRequestTask alloc] init];
+    requestTask.downloadPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"test.mp3"];
+    requestTask.progressHandle = ^(NSProgress *progress) {
+        NSLog(@"total:%lld current:%lld",progress.totalUnitCount,progress.completedUnitCount);
+    };
+    [requestTask loadWithComplateHandle:^(WSRequestTask *request, BOOL isLocalResult, NSError *error) {
+        
+    }];
+}
 
 @end

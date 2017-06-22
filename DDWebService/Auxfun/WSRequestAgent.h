@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class NSURLSessionTask;
 @class WSRequestTask;
 
 /**
@@ -17,61 +16,33 @@
 @interface WSRequestAgent : NSObject
 
 /**
- *  @brief 唯一初始化对象
- *
- *  @return WSRequestAgent
+ 返回正在正在请求的Models
+ 
+ @return NSArray
  */
-+ (WSRequestAgent *)sharedInstance;
+- (NSArray <WSRequestTask *>*)allRequestModles;
 
 /**
- *  @brief 返回所有正在发送的请求唯一标识
- *
- *  @return NSArray
+ 持有当前请求
+ 
+ @param requestModel WSRequestTask
  */
-- (NSArray *)allRequestIds;
-
+- (void)addRequestModel:(WSRequestTask *)requestModel;
+    
 /**
- *  @brief 根据指定策略是否允许发起请求
+ *  @brief 根据指定的taskIdentifier返回对应的WSRequestTask
  *
- *  @param requestModel 请求的配置信息
- *
- *  @return YES : 允许 : 不允许
- */
-- (BOOL)shouldLoadRequestModel:(WSRequestTask *)requestModel;
-
-/**
- *  @brief 持有当前的请求并返回唯一标识
- *
- *  @param dataTask 当前请求 
- *  @param requestModel 请求的配置信息
- *
- */
-- (void)addDataTask:(NSURLSessionTask *)dataTask requestModel:(WSRequestTask *)requestModel;
-
-/**
- *  @brief 根据指定的requestID返回对应的dataTask
- *
- *  @param requestId 请求的唯一标识
- *
- *  @return NSURLSessionTask
- */
-- (NSURLSessionTask *)dataTaskWithRequestId:(NSString *)requestId;
-
-/**
- *  @brief 根据指定的requestID返回对应的WSRequestTask
- *
- *  @param requestId 请求的唯一标识
+ *  @param taskIdentifier 请求的唯一标识
  *
  *  @return WSRequestTask
  */
-- (WSRequestTask *)requestModelWithRequestId:(NSString *)requestId;
+- (WSRequestTask *)requestModelWithTaskIdentifier:(NSString *)taskIdentifier;
 
 /**
- *  @brief 从当前的分发队列中移除当前的请求
- *
- *  @param requestId 请求的唯一标识
- *  @param success   是否请求成功
+ 当前分发队列中移除请求
+ 
+ @param requestModel WSRequestTask
  */
-- (void)removeRequestId:(NSString *)requestId success:(BOOL)success;
+- (void)removeRequestModel:(WSRequestTask *)requestModel;
 
 @end

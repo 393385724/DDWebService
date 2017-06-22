@@ -8,21 +8,32 @@
 
 #import "WSNetWorkClient.h"
 #import <AFNetworking/AFNetworking.h>
+#import <pthread/pthread.h>
 
 #import "WSRequestTask.h"
 #import "WSRequestAgent.h"
 #import "WSMultipartFormData.h"
 #import "WSQueryFormat.h"
 #import "WSNetworkConfig.h"
+#import "WSNetworkTool.h"
 
 @interface WSNetWorkClient ()
-
-/**@brief 整个app应该只持有一个sessionManager*/
-@property (nonatomic, strong) AFURLSessionManager *sessionManger;
-
-/**@brief 请求的持有类*/
+/**
+ 全局服务统一配置
+ */
+@property (nonatomic, strong) WSNetworkConfig *networkConfig;
+/**
+ 整个app应该只持有一个sessionManager
+ */
+@property (nonatomic, strong) AFHTTPSessionManager *sessionManger;
+/**
+ 请求持有类
+ */
 @property (nonatomic, strong) WSRequestAgent *requestAgent;
-
+/**
+ 允许支持的HttpCode
+ */
+@property (nonatomic, strong) NSIndexSet *allStatusCodes;
 @end
 
 @implementation WSNetWorkClient
@@ -36,39 +47,43 @@
     return sharedInstance;
 }
 
-#pragma mark - Publick Methods
-- (void)loadWithRequestModel:(WSRequestTask *)requestModel{
-    NSMutableURLRequest *urlRequest = [self urlRequetWithRequestModel:requestModel error:nil];
-    if ([WSNetworkConfig sharedInstance].shouldDetailLog) {
-        NSLog(@"\n%@ %@ %@ \nHEAD:%@\nParameter:%@\n",NSStringFromClass([requestModel class]),urlRequest.HTTPMethod,requestModel.requestUrlString,urlRequest.allHTTPHeaderFields,requestModel.parameter);
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _networkConfig = [WSNetworkConfig sharedInstance];
+        dispatch_queue_t processingQueue = dispatch_queue_create("com.huami.networkagent.processing", DISPATCH_QUEUE_CONCURRENT);
+        _allStatusCodes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(100, 500)];
+        
+        _sessionManger = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:_networkConfig.sessionConfiguration];
+        _sessionManger.securityPolicy = _networkConfig.securityPolicy;
+        _sessionManger.completionQueue = processingQueue;
+        
+        _requestAgent = [[WSRequestAgent alloc] init];
     }
-    
-    if (![self.requestAgent shouldLoadRequestModel:requestModel]) {
-        NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:429 userInfo:@{NSLocalizedDescriptionKey:@"Too Many Requests"}];
-        NSHTTPURLResponse *urlResponse = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:requestModel.requestUrlString] statusCode:error.code HTTPVersion:nil headerFields:urlRequest.allHTTPHeaderFields];
-        [self afDidFinishedWithURLResponse:nil responseObject:urlResponse requestModel:requestModel error:error];
+    return self;
+}
+
+#pragma mark - Publick Methods
+
+- (void)addWithRequestModel:(WSRequestTask *)requestModel{
+    NSParameterAssert(requestModel != nil);
+    //校验Header
+    NSError *error = [requestModel validLocalHeaderField];
+    if (error) {
+        [self requestDidFailedWithRequestModel:requestModel error:error];
         return;
     }
-    
-    NSURLSessionTask *dataTask = nil;
-    __weak __typeof(&*self)weakSelf = self;
-    if ([requestModel requestDataMethod] == WSRequestDataMethodDownload){
-        dataTask = [self.sessionManger downloadTaskWithRequest:urlRequest progress:^(NSProgress * _Nonnull downloadProgress) {
-            if (requestModel.progressHandle) {
-                requestModel.progressHandle(requestModel,downloadProgress);
-            }
-        } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
-            return [requestModel downLoadDestinationPath];
-        } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
-            __strong __typeof(&*weakSelf)strongSelf = weakSelf;
-            [strongSelf afDidFinishedWithURLResponse:(NSHTTPURLResponse *)response responseObject:@{} requestModel:requestModel error:error];
-        }];
-    } else {
-        dataTask = [self.sessionManger dataTaskWithRequest:urlRequest completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-            __strong __typeof(&*weakSelf)strongSelf = weakSelf;
-            [strongSelf afDidFinishedWithURLResponse:(NSHTTPURLResponse *)response responseObject:responseObject requestModel:requestModel error:error];
-        }];
+    [requestModel configureHeaderField];
+    //校验paramter
+    error = [requestModel validLocalParameterField];
+    if (error) {
+        [self requestDidFailedWithRequestModel:requestModel error:error];
+        return;
     }
+    [requestModel configureParameterField];
+    //生成请求task
+    NSError *requestSerializationError = nil;
+    requestModel.requestTask = [self sessionTaskForRequestModel:requestModel error:&requestSerializationError];
     //是否允许Hook重定向方法
     if (requestModel.shouldHookRedirection) {
         [self.sessionManger setTaskWillPerformHTTPRedirectionBlock:^NSURLRequest * _Nonnull(NSURLSession * _Nonnull session, NSURLSessionTask * _Nonnull task, NSURLResponse * _Nonnull response, NSURLRequest * _Nonnull request) {
@@ -77,77 +92,196 @@
     } else {
         [self.sessionManger setTaskWillPerformHTTPRedirectionBlock:nil];
     }
-    [dataTask resume];
-    [self.requestAgent addDataTask:dataTask requestModel:requestModel];
+    self.sessionManger.responseSerializer = [self responseSerializerWithRequestModel:requestModel];
+    NSAssert(requestModel.requestTask != nil, @"requestTask should not be nil");
+    [self.requestAgent addRequestModel:requestModel];
+    [requestModel.requestTask resume];
 }
 
-- (BOOL)isLoadingWithRequestId:(NSString *)requestId{
-    NSURLSessionTask *dataTask = [self.requestAgent dataTaskWithRequestId:requestId];
-    return dataTask && (dataTask.state == NSURLSessionTaskStateRunning || dataTask.state == NSURLSessionTaskStateSuspended);
+- (void)cancelWithRequestModel:(WSRequestTask *)requestModel {
+    NSParameterAssert(requestModel != nil);
+    [requestModel.requestTask cancel];
+    [self.requestAgent removeRequestModel:requestModel];
 }
 
-- (void)cancelWithRequestId:(NSString *)requestId{
-    NSURLSessionTask *dataTask = [self.requestAgent dataTaskWithRequestId:requestId];
-    if (dataTask) {
-        [dataTask cancel];
-    }
-}
-
-- (void)cancelAllRequest{
-    NSArray *allReqeustIds = [self.requestAgent allRequestIds];
-    for (NSString *requestId in allReqeustIds) {
-        [self cancelWithRequestId:requestId];
+- (void)cancelAllRequests {
+    NSArray <WSRequestTask *> *requestModles = [self.requestAgent allRequestModles];
+    for (WSRequestTask *requestModel in requestModles) {
+        [self cancelWithRequestModel:requestModel];
     }
 }
 
 #pragma mark - Private Methods
 
-- (NSMutableURLRequest *)urlRequetWithRequestModel:(WSRequestTask *)requestModel error:(NSError **)error{
-    //根据不同服务器请求创建不同的RequestSerializer
-    WSHTTPReqeustFormat reqeustFormat = [requestModel requestFormat];
-    AFHTTPRequestSerializer *requestSerializer = [AFHTTPRequestSerializer serializer];
+- (AFHTTPRequestSerializer *)requestSerializerWithRequestModel:(WSRequestTask *)requestModel {
+    WSRequestContentType contentType = [requestModel requestSerializerType];
+    AFHTTPRequestSerializer *requestSerializer = nil;
+    if (contentType == WSRequestContentTypeURLEncoded) {
+        requestSerializer = [AFHTTPRequestSerializer serializer];
+    } else if (contentType == WSRequestContentTypeJson) {
+        requestSerializer = [AFJSONRequestSerializer serializer];
+    } else if (contentType == WSRequestContentTypeXPlist) {
+        requestSerializer = [AFPropertyListRequestSerializer serializer];
+    }
+    
+    requestSerializer.timeoutInterval = [requestModel timeoutInterval];
+    requestSerializer.allowsCellularAccess = [requestModel allowsCellularAccess];
     
     //自定义Queury解析方法
+    __weak __typeof(&*self)weakSelf = self;
     [requestSerializer setQueryStringSerializationWithBlock:^NSString * _Nonnull(NSURLRequest * _Nonnull request, id  _Nonnull parameters, NSError * _Nullable __autoreleasing * _Nullable error) {
-        return [WSQueryFormat queryStringFromParameters:parameters];
-    }];
-    if (reqeustFormat == WSHTTPReqeustFormatPlist) {
-        requestSerializer = [AFPropertyListRequestSerializer serializer];
-    } else if (reqeustFormat == WSHTTPReqeustFormatJson){
-        requestSerializer = [AFJSONRequestSerializer serializer];
-    }
-    //单独自定义超时时间
-    if ([requestModel timeoutInterval] != -1) {
-        [requestSerializer setTimeoutInterval:[requestModel timeoutInterval]];
-    }
-    //自定义的Header
-    for (NSString *keyString in requestModel.headerDictionary.allKeys) {
-        NSString *valueString = requestModel.headerDictionary[keyString];
-        [requestSerializer setValue:valueString forHTTPHeaderField:keyString];
-    }
-    //配置request
-    NSMutableURLRequest *urlRequest = nil;
-    NSString *methodString = [self reqeustMethod:[requestModel requestMethod]];
-    if ([requestModel requestDataMethod] == WSRequestDataMethodMultipart){
-        //mutipart形式上传数据
-        urlRequest = [requestSerializer multipartFormRequestWithMethod:methodString URLString:requestModel.requestUrlString parameters:requestModel.parameter constructingBodyWithBlock:requestModel.constructingBodyBlock error:error];
-    } else if ([requestModel requestDataMethod] == WSRequestDataMethodBodyData){
-        //http Body形式上传数据
-        WSMultipartFormData *formData = [[WSMultipartFormData alloc] init];
-        void(^dataBlock)(id<AFMultipartFormData>)  = [requestModel constructingBodyBlock];
-        if (dataBlock) {
-            dataBlock(formData);
+        if (weakSelf.networkConfig.queryStringSerializationBlock) {
+            return weakSelf.networkConfig.queryStringSerializationBlock(request,parameters,error);
         } else {
-            NSAssert(NO,@"HTTP Body 形式上传数据必须实现constructingBodyBlock");
+            return [WSQueryFormat queryStringFromParameters:parameters];
         }
-        urlRequest = [requestSerializer requestWithMethod:methodString URLString:requestModel.requestUrlString parameters:requestModel.parameter error:error];
-        [urlRequest setHTTPBody:formData.data];
-        [urlRequest setValue:@"" forHTTPHeaderField:@"Content-Type"];
-    } else {
-        //正常请求
-        urlRequest = [requestSerializer requestWithMethod:methodString URLString:requestModel.requestUrlString parameters:requestModel.parameter error:error];
+    }];
+    
+    //自定义Header
+    NSDictionary<NSString *, NSString *> *headerFieldValueDictionary = requestModel.headerDictionary;
+    if (headerFieldValueDictionary != nil) {
+        for (NSString *httpHeaderField in headerFieldValueDictionary.allKeys) {
+            NSString *value = headerFieldValueDictionary[httpHeaderField];
+            [requestSerializer setValue:value forHTTPHeaderField:httpHeaderField];
+        }
     }
-    return urlRequest;
+    return requestSerializer;
+}
+
+- (AFHTTPResponseSerializer *)responseSerializerWithRequestModel:(WSRequestTask *)requestModel {
+    WSResponseMIMEType mimeType = [requestModel responseSerializerType];
+    AFHTTPResponseSerializer *responseSerializer = nil;
+    if (mimeType == WSResponseMIMETypeJson) {
+        AFJSONResponseSerializer *jsonResponseSerializer = [AFJSONResponseSerializer serializer];
+        jsonResponseSerializer.readingOptions = NSJSONReadingAllowFragments;
+        jsonResponseSerializer.removesKeysWithNullValues = YES;
+        responseSerializer = jsonResponseSerializer;
+    } else if (mimeType == WSResponseMIMETypeXML) {
+        responseSerializer = [AFXMLParserResponseSerializer serializer];
+    } else if (mimeType == WSResponseMIMETypePlist) {
+        responseSerializer = [AFPropertyListResponseSerializer serializer];
+    } else if (mimeType == WSResponseMIMETypeImage) {
+        responseSerializer = [AFImageResponseSerializer serializer];
+    }
+    responseSerializer.acceptableStatusCodes = self.allStatusCodes;
+    return responseSerializer;
+}
+
+#pragma mark - SessionTask
+
+- (NSMutableURLRequest *)requestWithHTTPMethod:(NSString *)method
+                             requestSerializer:(AFHTTPRequestSerializer *)requestSerializer
+                                     URLString:(NSString *)URLString
+                                    parameters:(id)parameters
+                                         error:(NSError * _Nullable __autoreleasing *)error {
+    return [self requestWithHTTPMethod:method requestSerializer:requestSerializer URLString:URLString parameters:parameters constructingBodyWithBlock:nil error:error];
+}
+
+- (NSMutableURLRequest *)requestWithHTTPMethod:(NSString *)method
+                             requestSerializer:(AFHTTPRequestSerializer *)requestSerializer
+                                     URLString:(NSString *)URLString
+                                    parameters:(id)parameters
+                     constructingBodyWithBlock:(nullable void (^)(id <AFMultipartFormData> formData))block
+                                         error:(NSError * _Nullable __autoreleasing *)error {
+    NSMutableURLRequest *request = nil;
+    if (block) {
+        request = [requestSerializer multipartFormRequestWithMethod:method URLString:URLString parameters:parameters constructingBodyWithBlock:block error:error];
+    } else {
+        request = [requestSerializer requestWithMethod:method URLString:URLString parameters:parameters error:error];
+    }
+    return request;
+}
+
+- (NSURLSessionTask *)sessionTaskForRequestModel:(WSRequestTask *)requestModel error:(NSError * _Nullable __autoreleasing *)error {
+    WSHTTPMethod method = [requestModel requestMethod];
+    NSString *requestUrlString = requestModel.requestUrlString;
+    id parameter = requestModel.parameter;
+    WSConstructingBlock constructingBlock = [requestModel constructingBodyBlock];
+    AFHTTPRequestSerializer *requestSerializer = [self requestSerializerWithRequestModel:requestModel];
+    
+    NSMutableURLRequest *mutableRequest = nil;
+    switch (method) {
+        case WSHTTPMethodGET: {
+            mutableRequest = [self requestWithHTTPMethod:@"GET" requestSerializer:requestSerializer URLString:requestUrlString parameters:parameter error:error];
+            break;
+        }
+        case WSHTTPMethodPOST:{
+            if ([requestModel uploadDataMethod] == WSUploadDataMethodHTTPBody) {
+                mutableRequest = [self requestWithHTTPMethod:@"POST" requestSerializer:requestSerializer URLString:requestUrlString parameters:parameter error:error];
+                WSMultipartFormData *formData = [[WSMultipartFormData alloc] init];
+                void(^dataBlock)(id<AFMultipartFormData>)  = [requestModel constructingBodyBlock];
+                if (dataBlock) {
+                    dataBlock(formData);
+                } else {
+                    NSAssert(NO,@"HTTP Body 形式上传数据必须实现constructingBodyBlock");
+                }
+                [mutableRequest setValue:@"" forHTTPHeaderField:@"Content-Type"];
+                [mutableRequest setHTTPBody:formData.data];
+            } else {
+                mutableRequest = [self requestWithHTTPMethod:@"POST" requestSerializer:requestSerializer URLString:requestUrlString parameters:parameter constructingBodyWithBlock:constructingBlock error:error];
+            }
+        }
+            break;
+        case WSHTTPMethodHEAD:{
+            mutableRequest = [self requestWithHTTPMethod:@"HEAD" requestSerializer:requestSerializer URLString:requestUrlString parameters:parameter error:error];
+        }
+            break;
+        case WSHTTPMethodPUT:{
+            mutableRequest = [self requestWithHTTPMethod:@"PUT" requestSerializer:requestSerializer URLString:requestUrlString parameters:parameter error:error];
+        }
+            break;
+        case WSHTTPMethodDELETE:{
+            mutableRequest = [self requestWithHTTPMethod:@"DELETE" requestSerializer:requestSerializer URLString:requestUrlString parameters:parameter error:error];
+        }
+            break;
+        case WSHTTPMethodPATCH:{
+            mutableRequest = [self requestWithHTTPMethod:@"PATCH" requestSerializer:requestSerializer URLString:requestUrlString parameters:parameter error:error];
+        }
+            break;
+        default:
+            break;
+    }
+    
+    if ([WSNetworkConfig sharedInstance].shouldDetailLog) {
+        NSLog(@"\n%@ [%@] %@ \nheader:%@\nparameter:%@\n",NSStringFromClass([requestModel class]),[self reqeustMethod:method],requestUrlString,mutableRequest.allHTTPHeaderFields,parameter);
+    }
+    __block NSURLSessionTask *dataTask = nil;
+    
+    if (requestModel.downloadPath) {
+        NSString *targetDownloadPath = [WSNetworkTool validDownloadPathWithDownloadPath:requestModel.downloadPath downloadURL:mutableRequest.URL];
+        BOOL canBeResumed = [WSNetworkTool canResumeDwonloadDataWithDownloadPath:targetDownloadPath];
+        BOOL resumeSucceeded = NO;
+        //尝试恢复下载，当然可能会存在crash，这时候我们重新下载
+        if (canBeResumed) {
+            @try {
+                NSData *data = [NSData dataWithContentsOfURL:[WSNetworkTool resumeDownloadDataTempPathForDownloadPath:targetDownloadPath]];
+                dataTask = [self.sessionManger downloadTaskWithResumeData:data progress:requestModel.progressHandle destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+                    return [NSURL fileURLWithPath:targetDownloadPath isDirectory:NO];
+                } completionHandler:
+                                ^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+                                    [self handleRequestResult:dataTask responseObject:filePath error:error];
+                                }];
+                resumeSucceeded = YES;
+            } @catch (NSException *exception) {
+                NSLog(@"Resume download failed, reason = %@", exception.reason);
+                resumeSucceeded = NO;
+            }
+        }
+        if (!resumeSucceeded) {
+            dataTask = [self.sessionManger downloadTaskWithRequest:mutableRequest progress:requestModel.progressHandle destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+                return [NSURL fileURLWithPath:targetDownloadPath isDirectory:NO];
+            } completionHandler:
+                            ^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+                                [self handleRequestResult:dataTask responseObject:filePath error:error];
+                            }];
+        }
+    } else {
+        dataTask = [self.sessionManger dataTaskWithRequest:mutableRequest
+                                         completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *_error) {
+                                             [self handleRequestResult:dataTask responseObject:responseObject error:_error];
+                                         }];
+    }
+    return dataTask;
 }
 
 - (NSString *)reqeustMethod:(WSHTTPMethod)httpMethod{
@@ -168,43 +302,86 @@
 
 #pragma mark - AFNetworking CallBack
 
-- (void)afDidFinishedWithURLResponse:(NSHTTPURLResponse *)urlResponse
-                      responseObject:(id)responseObject
-                        requestModel:(WSRequestTask *)requestModel
-                               error:(NSError *)error{
-    if (error) {
-        if ([WSNetworkConfig sharedInstance].shouldDetailLog || [WSNetworkConfig sharedInstance].shouldDeadlinessLog) {
-            NSLog(@"\n%@ %@ %@ \nHTTPURLResponse:%@\nObject:%@\nError:%@",NSStringFromClass([requestModel class]),[self reqeustMethod:requestModel.requestMethod],requestModel.requestUrlString,urlResponse,responseObject,error);
+- (void)handleRequestResult:(NSURLSessionTask *)task responseObject:(id)responseObject error:(NSError *)error {
+    WSRequestTask *requestModel = [self.requestAgent requestModelWithTaskIdentifier:[@(task.taskIdentifier) stringValue]];
+    if (!requestModel) {
+        return;
+    }
+    requestModel.responseRawObject = responseObject;
+    NSError *responseError = error;
+    //1、校验是否是正确的HttpCode
+    if (![requestModel statusCodeValidator] && requestModel.httpURLResponse) {
+        responseError = [NSError errorWithDomain:@"com.huami.statuscode.validation" code:requestModel.responseStatusCode userInfo:@{NSLocalizedDescriptionKey:@"Invalid status code"}];
+    }
+    //2、校验responseObject不能为NSNull class
+    if (!responseError && [responseObject isKindOfClass:[NSNull class]]) {
+        responseError = [NSError wsResponseFormatError];
+    }
+    
+    //3、如果是json结构，选择进行强校验
+    if (!responseError && [requestModel responseSerializerType] == WSResponseMIMETypeJson && [requestModel jsonModelValidator]) {
+        //对json结构进行强校验
+       BOOL validJson = [WSNetworkTool validateJsonObject:responseObject withValidJsonModel:[requestModel jsonModelValidator]];
+        if (!validJson) {
+            responseError = [NSError wsResponseFormatError];
         }
-        [self.requestAgent removeRequestId:requestModel.taskIdentifier success:NO];
-        [requestModel requestDidFailWithURLResponse:urlResponse responseObject:[responseObject mutableCopy] error:error];
-    } else {
+    }
+    //4、自定义校验
+    if (!responseError) {
+        responseError = [requestModel cumstomResposeRawObjectValidator];
+    }
+    //分发处理
+    if (!responseError) {
         if ([WSNetworkConfig sharedInstance].shouldDetailLog) {
-            NSLog(@"\n%@ %@ %@ \nHTTPURLResponse:%@\nObject:%@\n",NSStringFromClass([requestModel class]),[self reqeustMethod:requestModel.requestMethod],requestModel.requestUrlString,urlResponse,responseObject);
+            NSLog(@"\n%@ %@ %@ \nHTTPURLResponse:%@\nObject:%@\n",NSStringFromClass([requestModel class]),[self reqeustMethod:[requestModel requestMethod]],requestModel.requestUrlString,requestModel.httpURLResponse,requestModel.responseRawObject);
         }
-        [self.requestAgent removeRequestId:requestModel.requestUrlString success:YES];
-        [requestModel requestDidSuccessWithURLResponse:urlResponse responseObject:[responseObject mutableCopy]];
+        [self requestDidSucceedWithRequestModel:requestModel];
+    } else {
+        if ([WSNetworkConfig sharedInstance].shouldDetailLog || [WSNetworkConfig sharedInstance].shouldDeadlinessLog) {
+            NSLog(@"\n%@ %@ %@ \nHTTPURLResponse:%@\nObject:%@\nError:%@",NSStringFromClass([requestModel class]),[self reqeustMethod:[requestModel requestMethod]],requestModel.requestUrlString,requestModel.httpURLResponse,requestModel.responseRawObject,responseError);
+        }
+        [self requestDidFailedWithRequestModel:requestModel error:responseError];
     }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.requestAgent removeRequestModel:requestModel];
+        [requestModel clearCompletionBlock];
+    });
 }
 
-#pragma mark - Getter and Setter
-
-- (AFURLSessionManager *)sessionManger{
-    if (!_sessionManger) {
-        NSURLSessionConfiguration *sessionConfiguration = [WSNetworkConfig sharedInstance].sessionConfiguration;
-        _sessionManger = [[AFURLSessionManager alloc] initWithSessionConfiguration:sessionConfiguration];
-        _sessionManger.operationQueue.maxConcurrentOperationCount = 5;
-        AFJSONResponseSerializer *jsonResponseSerializer = _sessionManger.responseSerializer;
-        jsonResponseSerializer.readingOptions = NSJSONReadingAllowFragments;
-    }
-    return _sessionManger;
+- (void)requestDidSucceedWithRequestModel:(WSRequestTask *)requestModel {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (requestModel.delegate && [requestModel.delegate respondsToSelector:@selector(requestDidFinished:localResult:)]) {
+            [requestModel.delegate requestDidFinished:requestModel localResult:NO];
+        }
+        if (requestModel.completeHandle) {
+            requestModel.completeHandle(requestModel, NO, nil);
+        }
+    });
 }
 
-- (WSRequestAgent *)requestAgent{
-    if (!_requestAgent) {
-        _requestAgent = [[WSRequestAgent alloc] init];
+- (void)requestDidFailedWithRequestModel:(WSRequestTask *)requestModel error:(NSError *)error{
+    
+    //如果存在的话，缓存断点恢复的数据
+    NSData *resumeDownloadData = error.userInfo[NSURLSessionDownloadTaskResumeData];
+    if (resumeDownloadData) {
+        [resumeDownloadData writeToURL:[WSNetworkTool resumeDownloadDataTempPathForDownloadPath:requestModel.downloadPath] atomically:YES];
     }
-    return _requestAgent;
+    //下载失败,移除制定路径
+    if ([requestModel.responseRawObject isKindOfClass:[NSURL class]]) {
+        NSURL *url = requestModel.responseRawObject;
+        if (url.isFileURL && [[NSFileManager defaultManager] fileExistsAtPath:url.path]) {
+            [[NSFileManager defaultManager] removeItemAtURL:url error:nil];
+        }
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (requestModel.delegate && [requestModel.delegate respondsToSelector:@selector(requestDidFailed:error:)]) {
+            [requestModel.delegate requestDidFailed:requestModel error:error];
+        }
+        if (requestModel.completeHandle) {
+            requestModel.completeHandle(requestModel, NO, error);
+        }
+    });
 }
 
 @end
