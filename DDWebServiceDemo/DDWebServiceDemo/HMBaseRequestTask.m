@@ -51,7 +51,6 @@
     [self.headerDictionary setValue:[self apiVersion] forKey:@"v"];
     [self.headerDictionary setValue:[NSString wsAppShortVersion] forKey:@"cv"];
     [self.headerDictionary setValue:@"AppStore" forKey:@"channel"];
-    [self.headerDictionary setValue:@"application/json" forKey:@"Accept"];
 }
 
 
