@@ -116,6 +116,20 @@ static NSString * const WSNetworkResumeDownloadDataTempCacheFolder = @"WSResumeT
     return canBeResumed;
 }
 
++ (NSDictionary *)dictionaryWithQueryString:(NSString *)queryString {
+    NSArray *queryPairArray = [queryString componentsSeparatedByString:@"&"];
+    NSMutableDictionary *responseDict = [[NSMutableDictionary alloc] initWithCapacity:[queryPairArray count]];
+    @autoreleasepool{
+        for (NSString *queryPairString in queryPairArray) {
+            NSArray *keyValueArray = [queryPairString componentsSeparatedByString:@"="];
+            if ([keyValueArray count] == 2) {
+                [responseDict setObject:[keyValueArray lastObject] forKey:[keyValueArray firstObject]];
+            }
+        }
+    }
+    return responseDict;
+}
+
 #pragma mark - Private Methods
 
 + (BOOL)validateResumeData:(NSData *)data {
