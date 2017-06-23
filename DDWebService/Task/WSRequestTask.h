@@ -13,14 +13,6 @@
 #import "WSRequestCallbackProtocol.h"
 
 /**
- *  @brief 实现MultipartFormData
- *
- *  @param formData AFMultipartFormData协议
- */
-typedef void (^WSConstructingBlock)(id<AFMultipartFormData> formData);
-
-
-/**
  *  @brief api请求的基类描述
  *  @note 任何api都可以继承该基类并配置参数完成一次请求
  */
@@ -34,11 +26,11 @@ typedef void (^WSConstructingBlock)(id<AFMultipartFormData> formData);
 /**
  下载进度条，只有当downloadPath不为nil的时候设置才有效
  */
-@property (nonatomic, copy) WSProgressHandle progressHandle;
+@property (nonatomic, readonly) WSProgressHandle progressHandle;
 /**
- WSCompleteHandle 同时实现block和delegate,则block设置会失效
+ 设置网络回调接收者 同时实现block和delegate,则block设置会失效
  */
-@property (nonatomic, copy, readonly) WSCompleteHandle completeHandle;
+@property (nonatomic, readonly) WSCompleteHandle completeHandle;
 
 #pragma mark - 请求之前的配置属性
 /**
@@ -193,15 +185,21 @@ typedef void (^WSConstructingBlock)(id<AFMultipartFormData> formData);
 - (BOOL)allowsCellularAccess;
 
 #pragma mark - load
-
-/**
- 发送网络请求
- */
-- (void)load NS_REQUIRES_SUPER;
 /**
  发送网络请求并实现请求回调
  */
 - (void)loadWithComplateHandle:(WSCompleteHandle)complateHandle NS_REQUIRES_SUPER;
+
+/**
+ 发送网络请求并实现请求回调,只有下载数据且需要进度条
+ */
+- (void)loadWithProgress:(WSProgressHandle)progressHandle
+          complateHandle:(WSCompleteHandle)complateHandle NS_REQUIRES_SUPER;
+/**
+ 发送网络请求
+ */
+- (void)load NS_REQUIRES_SUPER;
+
 /**
  取消网络请求
  */

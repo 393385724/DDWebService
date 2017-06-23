@@ -10,6 +10,12 @@
 
 @class WSRequestTask;
 
+/**
+ *  @brief 实现MultipartFormData
+ *
+ *  @param formData AFMultipartFormData协议
+ */
+typedef void (^WSConstructingBlock)(id<AFMultipartFormData> formData);
 
 /**
  上传下载进度展示
