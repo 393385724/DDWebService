@@ -162,12 +162,16 @@
     return nil;
 }
 
-#pragma mark - CallBack
-
 - (void)clearCompletionBlock {
     self.delegate = nil;
     self.completeHandle = nil;
     self.progressHandle = nil;
+}
+
+#pragma mark - 错误处理
+
+- (void)handleError:(NSError *)error {
+    
 }
 
 #pragma mark - Getter and setter

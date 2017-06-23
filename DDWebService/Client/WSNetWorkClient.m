@@ -310,11 +310,11 @@
     }
     requestModel.responseRawObject = responseObject;
     NSError *responseError = error;
-    //1、校验是否是正确的HttpCode
-    if (![requestModel statusCodeValidator] && requestModel.httpURLResponse) {
+    //1、校验是否是正确的statusCode（通常200-300之间是正常的Code）
+    if (![requestModel statusCodeValidator] && requestModel.httpURLResponse && !error) {
         responseError = [NSError errorWithDomain:@"com.huami.statuscode.validation" code:requestModel.responseStatusCode userInfo:@{NSLocalizedDescriptionKey:@"Invalid status code"}];
     }
-    //2、如果允许重定向，需要hook住
+    //2、如果允许重定向(statusCode为3XX的为重定向)，可能的话需要hook住
     if (requestModel.shouldHookRedirection && requestModel.responseStatusCode >= 300 && requestModel.responseStatusCode < 400) {
         NSString *locationString = requestModel.httpURLResponse.allHeaderFields[@"Location"];
         NSString *queryString = [NSURL URLWithString:locationString].query;
@@ -367,7 +367,6 @@
 }
 
 - (void)requestDidFailedWithRequestModel:(WSRequestTask *)requestModel error:(NSError *)error{
-    
     //如果存在的话，缓存断点恢复的数据
     NSData *resumeDownloadData = error.userInfo[NSURLSessionDownloadTaskResumeData];
     if (resumeDownloadData) {
@@ -382,6 +381,7 @@
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
+        [requestModel handleError:error];
         if (requestModel.delegate && [requestModel.delegate respondsToSelector:@selector(requestDidFailed:error:)]) {
             [requestModel.delegate requestDidFailed:requestModel error:error];
         }
