@@ -17,7 +17,9 @@
 
 @property (nonatomic, strong, readwrite) id parameter;
 
-@property (nonatomic, copy) WSCompleteHandle completeHandle;
+@property (nonatomic, copy, readwrite) WSCompleteHandle completeHandle;
+
+@property (nonatomic, copy, readwrite) WSProgressHandle progressHandle;
 
 @property (nonatomic, strong) NSDate *lastSuccessReqeustDate;
 
@@ -142,22 +144,24 @@
 #pragma mark - load
 
 - (void)loadWithComplateHandle:(WSCompleteHandle)complateHandle{
+    [self loadWithProgress:nil complateHandle:complateHandle];
+}
+
+- (void)loadWithProgress:(WSProgressHandle)progressHandle
+          complateHandle:(WSCompleteHandle)complateHandle {
     self.completeHandle = complateHandle;
+    self.progressHandle = progressHandle;
     [self load];
 }
 
 - (void)load{
-    [self loadLocal:NO];
+    self.resultItem = nil;
+    self.resultItems = nil;
+    [[WSNetWorkClient sharedInstance] addWithRequestModel:self];
 }
 
 - (void)cancel{
     [[WSNetWorkClient sharedInstance] cancelWithRequestModel:self];
-}
-
-- (void)loadLocal:(BOOL)localData{
-    self.resultItem = nil;
-    self.resultItems = nil;
-    [[WSNetWorkClient sharedInstance] addWithRequestModel:self];
 }
 
 #pragma mark - response validator

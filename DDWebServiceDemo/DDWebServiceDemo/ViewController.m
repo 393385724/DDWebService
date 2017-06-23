@@ -45,10 +45,9 @@
 - (void)testDownLoad{
     HMDownLoadRequestTask *requestTask = [[HMDownLoadRequestTask alloc] init];
     requestTask.downloadPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"test.mp3"];
-    requestTask.progressHandle = ^(NSProgress *progress) {
+    [requestTask loadWithProgress:^(NSProgress *progress) {
         NSLog(@"total:%lld current:%lld",progress.totalUnitCount,progress.completedUnitCount);
-    };
-    [requestTask loadWithComplateHandle:^(WSRequestTask *request, BOOL isLocalResult, NSError *error) {
+    } complateHandle:^(WSRequestTask *request, BOOL isLocalResult, NSError *error) {
         
     }];
 }
