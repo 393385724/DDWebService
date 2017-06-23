@@ -215,4 +215,11 @@ typedef void (^WSConstructingBlock)(id<AFMultipartFormData> formData);
  */
 - (void)clearCompletionBlock;
 
+#pragma mark - 错误处理
+
+/**
+ 服务器返回的错误都会调用该方法
+ */
+- (void)handleError:(NSError *)error;
+
 @end
