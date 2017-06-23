@@ -222,6 +222,10 @@ typedef void (^WSConstructingBlock)(id<AFMultipartFormData> formData);
  */
 - (NSError *)cumstomResposeRawObjectValidator NS_REQUIRES_SUPER;
 /**
+ 经过一系列校验，数据校验合法后调用该方法
+ */
+- (void)requestCompleteProcessor NS_REQUIRES_SUPER;
+/**
  清理block，避免循环引用,子类及外部不可调用
  */
 - (void)clearCompletionBlockRequestSuccess:(BOOL)success;

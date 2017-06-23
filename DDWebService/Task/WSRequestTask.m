@@ -178,6 +178,10 @@
     return nil;
 }
 
+- (void)requestCompleteProcessor {
+    
+}
+
 - (void)clearCompletionBlockRequestSuccess:(BOOL)success {
     if (success) {
         [self resetRequestTTL];
