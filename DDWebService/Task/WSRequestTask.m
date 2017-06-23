@@ -11,21 +11,16 @@
 
 @interface WSRequestTask ()
 
-/**@brief 完整的请求URL*/
 @property (nonatomic, copy, readwrite) NSString *requestUrlString;
 
-/**@brief 自定义的HEADER*/
 @property (nonatomic, strong, readwrite) NSMutableDictionary *headerDictionary;
 
-/**@brief 自定义的parameter*/
 @property (nonatomic, strong, readwrite) id parameter;
 
-/**@brief 实现请求的回调*/
 @property (nonatomic, copy) WSCompleteHandle completeHandle;
 
-/**
- NSHTTPURLResponse
- */
+@property (nonatomic, strong) NSDate *lastSuccessReqeustDate;
+
 @property (nonatomic, strong, readwrite) NSHTTPURLResponse *httpURLResponse;
 
 @end
@@ -115,11 +110,32 @@
 }
 
 #pragma mark - 策略
+
 - (NSTimeInterval)timeoutInterval{
     return 60;
 }
 
+- (NSTimeInterval)requestInterval {
+    return 0;
+}
+
 - (BOOL)allowsCellularAccess {
+    return YES;
+}
+
+- (void)resetRequestTTL {
+    if ([self requestInterval] > 0) {
+        self.lastSuccessReqeustDate = [NSDate date];
+    }
+}
+
+- (BOOL)requestInforbidTimeLimit {
+    if ([self requestInterval] > 0 && self.lastSuccessReqeustDate) {
+        NSTimeInterval interal = [[NSDate date] timeIntervalSinceDate:self.lastSuccessReqeustDate];
+        if (fabs(interal) < [self requestInterval]) {
+            return NO;
+        }
+    }
     return YES;
 }
 
@@ -162,7 +178,10 @@
     return nil;
 }
 
-- (void)clearCompletionBlock {
+- (void)clearCompletionBlockRequestSuccess:(BOOL)success {
+    if (success) {
+        [self resetRequestTTL];
+    }
     self.delegate = nil;
     self.completeHandle = nil;
     self.progressHandle = nil;
