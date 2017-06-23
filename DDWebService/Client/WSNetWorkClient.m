@@ -67,6 +67,12 @@
 
 - (void)addWithRequestModel:(WSRequestTask *)requestModel{
     NSParameterAssert(requestModel != nil);
+    //时效校验
+    if (![requestModel requestInforbidTimeLimit]) {
+        NSError *error = [NSError wsTooManyTimeError];
+        [self requestDidFailedWithRequestModel:requestModel error:error];
+        return;
+    }
     //校验Header
     NSError *error = [requestModel validLocalHeaderField];
     if (error) {
@@ -351,7 +357,7 @@
     }
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.requestAgent removeRequestModel:requestModel];
-        [requestModel clearCompletionBlock];
+        [requestModel clearCompletionBlockRequestSuccess:!error];
     });
 }
 

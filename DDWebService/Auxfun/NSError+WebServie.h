@@ -23,6 +23,8 @@
 
 + (nonnull NSError *)wsLocalParamErrorKey:(nonnull NSString *)key;
 
++ (nonnull NSError *)wsTooManyTimeError;
+
 + (nonnull NSError *)wsResponseFormatError;
 
 @end

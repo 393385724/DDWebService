@@ -178,11 +178,22 @@ typedef void (^WSConstructingBlock)(id<AFMultipartFormData> formData);
 - (NSTimeInterval)timeoutInterval;
 
 /**
+ 统一请求的时间间隔 单位 s， 默认0不需要间隔,有时间间隔的情况下会返回取消的错误
+ */
+- (NSTimeInterval)requestInterval;
+
+/**
+ 是否在禁止请求的时限内
+ */
+- (BOOL)requestInforbidTimeLimit;
+
+/**
  允许使用数据流量, 默认YES
  */
 - (BOOL)allowsCellularAccess;
 
 #pragma mark - load
+
 /**
  发送网络请求
  */
@@ -213,7 +224,7 @@ typedef void (^WSConstructingBlock)(id<AFMultipartFormData> formData);
 /**
  清理block，避免循环引用,子类及外部不可调用
  */
-- (void)clearCompletionBlock;
+- (void)clearCompletionBlockRequestSuccess:(BOOL)success;
 
 #pragma mark - 错误处理
 

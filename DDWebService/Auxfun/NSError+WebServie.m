@@ -35,6 +35,12 @@ static const void *WSErrorPromptNameKey = &WSErrorPromptNameKey;
     return [self wsErrorWithDomain:@"wsLocalParamError" code:NSURLErrorBadURL prompt:prompt userInfo:@{NSLocalizedDescriptionKey:prompt}];
 }
 
++ (nonnull NSError *)wsTooManyTimeError {
+    NSString *prompt = @"request in limit time";
+    return [self wsErrorWithDomain:@"com.huami.request.time" code:NSURLErrorCancelled prompt:prompt userInfo:@{NSLocalizedDescriptionKey:prompt}];
+}
+
+
 + (nonnull NSError *)wsResponseFormatError {
     NSString *prompt = @"response format error (null or not json format)";
     return [self wsErrorWithDomain:@"com.huami.response.validation" code:NSURLErrorBadServerResponse prompt:prompt userInfo:@{NSLocalizedDescriptionKey:prompt}];
