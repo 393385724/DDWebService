@@ -362,6 +362,8 @@
 }
 
 - (void)requestDidSucceedWithRequestModel:(WSRequestTask *)requestModel {
+    [requestModel requestCompleteProcessor];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         if (requestModel.delegate && [requestModel.delegate respondsToSelector:@selector(requestDidFinished:localResult:)]) {
             [requestModel.delegate requestDidFinished:requestModel localResult:NO];
