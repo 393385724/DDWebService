@@ -201,56 +201,36 @@
 
 - (NSURLSessionTask *)sessionTaskForRequestModel:(WSRequestTask *)requestModel error:(NSError * _Nullable __autoreleasing *)error {
     WSHTTPMethod method = [requestModel requestMethod];
+    NSString *methodString = [self reqeustMethod:method];
     NSString *requestUrlString = requestModel.requestUrlString;
     id parameter = requestModel.parameter;
     WSConstructingBlock constructingBlock = [requestModel constructingBodyBlock];
     AFHTTPRequestSerializer *requestSerializer = [self requestSerializerWithRequestModel:requestModel];
     
     NSMutableURLRequest *mutableRequest = nil;
-    switch (method) {
-        case WSHTTPMethodGET: {
-            mutableRequest = [self requestWithHTTPMethod:@"GET" requestSerializer:requestSerializer URLString:requestUrlString parameters:parameter error:error];
-            break;
+    
+    BOOL uploadData = ![requestModel constructingBodyBlock] && [requestModel uploadDataMethod] == WSUploadDataMethodMultipart;
+    BOOL correctUploadMethod = method != WSHTTPMethodGET && method != WSHTTPMethodHEAD;
+    if (uploadData && correctUploadMethod) {
+        mutableRequest = [self requestWithHTTPMethod:methodString requestSerializer:requestSerializer URLString:requestUrlString parameters:parameter constructingBodyWithBlock:constructingBlock error:error];
+    } else {
+        mutableRequest = [self requestWithHTTPMethod:methodString requestSerializer:requestSerializer URLString:requestUrlString parameters:parameter error:error];
+    }
+    
+    if ([requestModel uploadDataMethod] == WSUploadDataMethodHTTPBody) {
+        WSMultipartFormData *formData = [[WSMultipartFormData alloc] init];
+        void(^dataBlock)(id<AFMultipartFormData>)  = [requestModel constructingBodyBlock];
+        if (dataBlock) {
+            dataBlock(formData);
+        } else {
+            NSAssert(NO,@"HTTP Body 形式上传数据必须实现constructingBodyBlock");
         }
-        case WSHTTPMethodPOST:{
-            if ([requestModel uploadDataMethod] == WSUploadDataMethodHTTPBody) {
-                mutableRequest = [self requestWithHTTPMethod:@"POST" requestSerializer:requestSerializer URLString:requestUrlString parameters:parameter error:error];
-                WSMultipartFormData *formData = [[WSMultipartFormData alloc] init];
-                void(^dataBlock)(id<AFMultipartFormData>)  = [requestModel constructingBodyBlock];
-                if (dataBlock) {
-                    dataBlock(formData);
-                } else {
-                    NSAssert(NO,@"HTTP Body 形式上传数据必须实现constructingBodyBlock");
-                }
-                [mutableRequest setValue:@"" forHTTPHeaderField:@"Content-Type"];
-                [mutableRequest setHTTPBody:formData.data];
-            } else {
-                mutableRequest = [self requestWithHTTPMethod:@"POST" requestSerializer:requestSerializer URLString:requestUrlString parameters:parameter constructingBodyWithBlock:constructingBlock error:error];
-            }
-        }
-            break;
-        case WSHTTPMethodHEAD:{
-            mutableRequest = [self requestWithHTTPMethod:@"HEAD" requestSerializer:requestSerializer URLString:requestUrlString parameters:parameter error:error];
-        }
-            break;
-        case WSHTTPMethodPUT:{
-            mutableRequest = [self requestWithHTTPMethod:@"PUT" requestSerializer:requestSerializer URLString:requestUrlString parameters:parameter error:error];
-        }
-            break;
-        case WSHTTPMethodDELETE:{
-            mutableRequest = [self requestWithHTTPMethod:@"DELETE" requestSerializer:requestSerializer URLString:requestUrlString parameters:parameter error:error];
-        }
-            break;
-        case WSHTTPMethodPATCH:{
-            mutableRequest = [self requestWithHTTPMethod:@"PATCH" requestSerializer:requestSerializer URLString:requestUrlString parameters:parameter error:error];
-        }
-            break;
-        default:
-            break;
+        [mutableRequest setValue:@"" forHTTPHeaderField:@"Content-Type"];
+        [mutableRequest setHTTPBody:formData.data];
     }
     
     if ([WSNetworkConfig sharedInstance].shouldDetailLog) {
-        NSLog(@"\n%@ [%@] %@ \nheader:%@\nparameter:%@\n",NSStringFromClass([requestModel class]),[self reqeustMethod:method],requestUrlString,mutableRequest.allHTTPHeaderFields,parameter);
+        NSLog(@"\n%@ [%@] %@ \nheader:%@\nparameter:%@\n",NSStringFromClass([requestModel class]),methodString,requestUrlString,mutableRequest.allHTTPHeaderFields,parameter);
     }
     __block NSURLSessionTask *dataTask = nil;
     
@@ -302,6 +282,8 @@
         return @"DELETE";
     } else if (httpMethod == WSHTTPMethodPATCH){
         return @"PATCH";
+    } else if (httpMethod == WSHTTPMethodHEAD) {
+        return @"HEAD";
     } else {
         return @"GET";
     }
