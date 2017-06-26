@@ -13,8 +13,7 @@
 #import "WSRequestCallbackProtocol.h"
 
 /**
- *  @brief api请求的基类描述
- *  @note 任何api都可以继承该基类并配置参数完成一次请求
+ 单个api请求相关模板参数，任何请求api都应该继承该类并配置相关参数
  */
 @interface WSRequestTask : NSObject
 
@@ -46,7 +45,7 @@
  */
 @property (nonatomic, readonly) id parameter;
 /**
- 是否允许截获重定向, 默认NO
+ 是否允许截获重定向, 默认NO，允许后会截获重定向并解析重定向带有的Query
  */
 @property (nonatomic, assign) BOOL shouldHookRedirection;
 /**
@@ -54,11 +53,11 @@
  */
 @property (nonatomic, readonly, getter=isCancelled) BOOL cancelled;
 /**
- 当前是否正在执行
+ 是否正在执行状态
  */
 @property (nonatomic, readonly, getter=isExecuting) BOOL executing;
 /**
- 下载数据路径
+ 下载数据路径设置，改值不为nil，则实现progressHandle会生效
  */
 @property (nonatomic, copy) NSString *downloadPath;
 
@@ -69,23 +68,23 @@
  */
 @property (nonatomic, strong) NSURLSessionTask *requestTask;
 /**
- 请求结束返回的HTTP响应结果
+ 请求结束返回的HTTP响应结果，请求未结束前，该值为nil
  */
 @property (nonatomic, readonly) NSHTTPURLResponse *httpURLResponse;
 /**
- 未请求结束前，获取改值为nil
+ HTTP Status Code，请求未结束前，该值为0
  */
 @property (nonatomic, readonly) NSInteger responseStatusCode;
 /**
- 服务器请求返回的原始数据
+ 服务器请求返回的原始数据(未做任何处理，子类及外部只可读取)
  */
 @property (nonatomic, strong) id responseRawObject;
 /**
- 成功解析response中的单个对象or对象字典
+ 在responseRawObject成功解析出来的数据，子类可对其赋值，eg、单个对象、字典、数组
  */
 @property (nonatomic, strong) id resultItem;
 /**
- 成功解析出来的多个对象,model数组
+ 在responseRawObject成功解析出来的多个对象组，子类可对其赋值，eg、NSArray or 对象数组
  */
 @property (nonatomic, strong) NSArray *resultItems;
 
@@ -175,7 +174,7 @@
 - (NSTimeInterval)requestInterval;
 
 /**
- 是否在禁止请求的时限内
+ 是否在禁止请求的时限内，子类不需要实现
  */
 - (BOOL)requestInforbidTimeLimit;
 

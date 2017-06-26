@@ -9,50 +9,49 @@
 #import <Foundation/Foundation.h>
 
 @class WSRequestTask;
+@protocol AFMultipartFormData;
 
 /**
- *  @brief 实现MultipartFormData
- *
- *  @param formData AFMultipartFormData协议
+ 上传数据需要使用的block，遵循AFMultipartFormData协议
+ 
+ @param formData AFMultipartFormData协议
  */
 typedef void (^WSConstructingBlock)(id<AFMultipartFormData> formData);
 
 /**
- 上传下载进度展示
+ 下载进度回调
 
  @param progress NSProgress
  */
 typedef void (^WSProgressHandle)(NSProgress *progress);
 
-
 /**
- *  @brief 请求回调的block
- *
- *  @param request  WSRequestTask子类
- *  @param isLocalResult 是不是加载的本地数据
- *  @param error    请求失败的错误信息，eg. 参数错误，服务器错误,...
+ 请求回调block
+ 
+ @param request WSRequestTask子类
+ @param isLocalResult 是否加载的本地数据(遗留没什么用)
+ @param error 错误信息
  */
 typedef void (^WSCompleteHandle)(WSRequestTask *request, BOOL isLocalResult, NSError *error);
 
-
 /**
- *  @brief 回调协议
+ 回调协议
  */
 @protocol WSRequestCallbackProtocol <NSObject>
 
 /**
- *  @brief 请求成功的回调
- *
- *  @param request  WSRequestTask子类
- *  @param isLocalResult 是不是加载的本地数据
+ 请求成功的回调
+ 
+ @param request WSRequestTask子类
+ @param isLocalResult 是否加载的本地数据(遗留没什么用)
  */
 - (void)requestDidFinished:(WSRequestTask *)request localResult:(BOOL)isLocalResult;
 
 /**
- *  @brief 请求失败的回调
- *
- *  @param request WSRequestTask子类
- *  @param error   请求失败的错误信息，eg. 参数错误，服务器错误,...
+ 请求失败的回调
+ 
+ @param request WSRequestTask子类
+ @param error 失败信息，eg. 参数错误，服务器错误,...
  */
 - (void)requestDidFailed:(WSRequestTask *)request error:(NSError *)error;
 
