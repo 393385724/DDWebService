@@ -69,6 +69,25 @@
     return WSHTTPMethodGET;
 }
 
+- (NSString *)reqeustMethodString {
+    WSHTTPMethod httpMethod = [self requestMethod];
+    if (httpMethod == WSHTTPMethodGET) {
+        return @"GET";
+    } else if (httpMethod == WSHTTPMethodPOST){
+        return @"POST";
+    } else if (httpMethod == WSHTTPMethodPUT){
+        return @"PUT";
+    } else if (httpMethod == WSHTTPMethodDELETE){
+        return @"DELETE";
+    } else if (httpMethod == WSHTTPMethodPATCH){
+        return @"PATCH";
+    } else if (httpMethod == WSHTTPMethodHEAD) {
+        return @"HEAD";
+    } else {
+        return @"GET";
+    }
+}
+
 - (WSUploadDataMethod)uploadDataMethod {
     return WSUploadDataMethodMultipart;
 }

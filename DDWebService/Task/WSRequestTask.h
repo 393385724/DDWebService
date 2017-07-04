@@ -80,7 +80,7 @@
  */
 @property (nonatomic, strong) id responseRawObject;
 /**
- 在responseRawObject成功解析出来的数据，子类可对其赋值，eg、单个对象、字典、数组
+ 在responseRawObject成功解析出来的数据，子类可对其赋值，eg、单个对象、字典、字符串
  */
 @property (nonatomic, strong) id resultItem;
 /**
@@ -108,6 +108,11 @@
  请求方法 @see WSHTTPMethod  default WSHTTPMethodGET
  */
 - (WSHTTPMethod)requestMethod;
+
+/**
+ 请求方法的字符串形式
+ */
+- (NSString *)reqeustMethodString;
 
 /**
  上传数据方式,@see WSUploadDataMethod 默认WSUploadDataMethodMultipart
