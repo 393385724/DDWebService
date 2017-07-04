@@ -201,7 +201,7 @@
 
 - (NSURLSessionTask *)sessionTaskForRequestModel:(WSRequestTask *)requestModel error:(NSError * _Nullable __autoreleasing *)error {
     WSHTTPMethod method = [requestModel requestMethod];
-    NSString *methodString = [self reqeustMethod:method];
+    NSString *methodString = [requestModel reqeustMethodString];
     NSString *requestUrlString = requestModel.requestUrlString;
     id parameter = requestModel.parameter;
     WSConstructingBlock constructingBlock = [requestModel constructingBodyBlock];
@@ -271,24 +271,6 @@
     return dataTask;
 }
 
-- (NSString *)reqeustMethod:(WSHTTPMethod)httpMethod{
-    if (httpMethod == WSHTTPMethodGET) {
-        return @"GET";
-    } else if (httpMethod == WSHTTPMethodPOST){
-        return @"POST";
-    } else if (httpMethod == WSHTTPMethodPUT){
-        return @"PUT";
-    } else if (httpMethod == WSHTTPMethodDELETE){
-        return @"DELETE";
-    } else if (httpMethod == WSHTTPMethodPATCH){
-        return @"PATCH";
-    } else if (httpMethod == WSHTTPMethodHEAD) {
-        return @"HEAD";
-    } else {
-        return @"GET";
-    }
-}
-
 #pragma mark - AFNetworking CallBack
 
 - (void)handleRequestResult:(NSURLSessionTask *)task responseObject:(id)responseObject error:(NSError *)error {
@@ -328,12 +310,12 @@
     //分发处理
     if (!responseError) {
         if ([WSNetworkConfig sharedInstance].shouldDetailLog) {
-            NSLog(@"\n%@ %@ %@ \nHTTPURLResponse:%@\nObject:%@\n",NSStringFromClass([requestModel class]),[self reqeustMethod:[requestModel requestMethod]],requestModel.requestUrlString,requestModel.httpURLResponse,requestModel.responseRawObject);
+            NSLog(@"\n%@ %@ %@ \nHTTPURLResponse:%@\nObject:%@\n",NSStringFromClass([requestModel class]),[requestModel reqeustMethodString],requestModel.requestUrlString,requestModel.httpURLResponse,requestModel.responseRawObject);
         }
         [self requestDidSucceedWithRequestModel:requestModel];
     } else {
         if ([WSNetworkConfig sharedInstance].shouldDetailLog || [WSNetworkConfig sharedInstance].shouldDeadlinessLog) {
-            NSLog(@"\n%@ %@ %@ \nHTTPURLResponse:%@\nObject:%@\nError:%@",NSStringFromClass([requestModel class]),[self reqeustMethod:[requestModel requestMethod]],requestModel.requestUrlString,requestModel.httpURLResponse,requestModel.responseRawObject,responseError);
+            NSLog(@"\n%@ %@ %@ \nHTTPURLResponse:%@\nObject:%@\nError:%@",NSStringFromClass([requestModel class]),[requestModel reqeustMethodString],requestModel.requestUrlString,requestModel.httpURLResponse,requestModel.responseRawObject,responseError);
         }
         [self requestDidFailedWithRequestModel:requestModel error:responseError];
     }
