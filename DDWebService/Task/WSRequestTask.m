@@ -150,14 +150,14 @@
     }
 }
 
-- (BOOL)requestInforbidTimeLimit {
+- (BOOL)shouldForbidRequestWhithInTimeLimit {
     if ([self requestInterval] > 0 && self.lastSuccessReqeustDate) {
         NSTimeInterval interal = [[NSDate date] timeIntervalSinceDate:self.lastSuccessReqeustDate];
         if (fabs(interal) < [self requestInterval]) {
-            return NO;
+            return YES;
         }
     }
-    return YES;
+    return NO;
 }
 
 #pragma mark - load
