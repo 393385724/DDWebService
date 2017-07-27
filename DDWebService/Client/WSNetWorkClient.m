@@ -68,7 +68,7 @@
 - (void)addWithRequestModel:(WSRequestTask *)requestModel{
     NSParameterAssert(requestModel != nil);
     //时效校验
-    if (![requestModel requestInforbidTimeLimit]) {
+    if ([requestModel shouldForbidRequestWhithInTimeLimit]) {
         NSError *error = [NSError wsTooManyTimeError];
         [self requestDidFailedWithRequestModel:requestModel error:error];
         return;

@@ -179,9 +179,9 @@
 - (NSTimeInterval)requestInterval;
 
 /**
- 是否在禁止请求的时限内，子类不需要实现
+ 是否在指定的时间间隔内禁止请求，子类不需要实现
  */
-- (BOOL)requestInforbidTimeLimit;
+- (BOOL)shouldForbidRequestWhithInTimeLimit;
 
 /**
  允许使用数据流量, 默认YES
