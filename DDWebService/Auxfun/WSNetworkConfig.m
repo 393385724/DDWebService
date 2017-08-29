@@ -9,6 +9,7 @@
 #import "WSNetworkConfig.h"
 #import <AFNetworking/AFNetworking.h>
 #import "NSString+WebService.m"
+#import "WSQueryFormat.h"
 
 @implementation WSNetworkConfig
 
@@ -26,6 +27,9 @@
     if (self) {
         self.shouldDeadlinessLog = YES;
         _securityPolicy = [AFSecurityPolicy defaultPolicy];
+        self.queryStringSerializationBlock = ^NSString *(NSURLRequest *request, id parameters, NSError *__autoreleasing *error) {
+            return [WSQueryFormat queryStringFromParameters:parameters];
+        };
         NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
         sessionConfiguration.HTTPMaximumConnectionsPerHost = 4;
         sessionConfiguration.timeoutIntervalForRequest = 30;

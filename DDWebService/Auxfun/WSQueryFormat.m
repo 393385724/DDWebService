@@ -11,6 +11,7 @@
  */
 
 #import "WSQueryFormat.h"
+#import <AFNetworking/AFURLRequestSerialization.h>
 
 @interface HMQueryStringPair : NSObject
 
@@ -35,9 +36,9 @@
 
 - (NSString *)URLEncodedStringValue {
     if (!self.value || [self.value isEqual:[NSNull null]]) {
-        return [self.field description];;
+        return AFPercentEscapedStringFromString([self.field description]);
     } else {
-        return [NSString stringWithFormat:@"%@=%@", [self.field description], [self.value description]];
+        return [NSString stringWithFormat:@"%@=%@", AFPercentEscapedStringFromString([self.field description]), AFPercentEscapedStringFromString([self.value description])];
     }
 }
 

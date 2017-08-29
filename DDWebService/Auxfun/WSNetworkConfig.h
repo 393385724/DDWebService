@@ -28,7 +28,7 @@ typedef NSString * (^WSQueryStringSerializationBlock)(NSURLRequest *request, id 
 @property (nonatomic, strong) AFSecurityPolicy *securityPolicy;
 
 /**
- 自定义QueryString序列化规则
+ 自定义QueryString序列化规则,默认WSQueryFormat
  */
 @property (nonatomic, copy) WSQueryStringSerializationBlock queryStringSerializationBlock;
 

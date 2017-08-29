@@ -13,7 +13,6 @@
 #import "WSRequestTask.h"
 #import "WSRequestAgent.h"
 #import "WSMultipartFormData.h"
-#import "WSQueryFormat.h"
 #import "WSNetworkConfig.h"
 #import "WSNetworkTool.h"
 
@@ -137,11 +136,7 @@
     //自定义Queury解析方法
     __weak __typeof(&*self)weakSelf = self;
     [requestSerializer setQueryStringSerializationWithBlock:^NSString * _Nonnull(NSURLRequest * _Nonnull request, id  _Nonnull parameters, NSError * _Nullable __autoreleasing * _Nullable error) {
-        if (weakSelf.networkConfig.queryStringSerializationBlock) {
-            return weakSelf.networkConfig.queryStringSerializationBlock(request,parameters,error);
-        } else {
-            return [WSQueryFormat queryStringFromParameters:parameters];
-        }
+        return weakSelf.networkConfig.queryStringSerializationBlock(request,parameters,error);
     }];
     
     //自定义Header
