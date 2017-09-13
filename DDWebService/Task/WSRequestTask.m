@@ -209,7 +209,6 @@
     if (success) {
         [self resetRequestTTL];
     }
-    self.delegate = nil;
     self.completeHandle = nil;
     self.progressHandle = nil;
 }
