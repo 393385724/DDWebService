@@ -7,34 +7,105 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		908C5BD51EFA7FF000C12464 /* WSNetworkTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 908C5BD41EFA7FF000C12464 /* WSNetworkTool.m */; };
+		904C30F41FA9AD6000B2596A /* DDWebService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 904C30EC1FA9AD6000B2596A /* DDWebService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		904C31141FA9AD8800B2596A /* WSNetworkMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 904C30FC1FA9AD8700B2596A /* WSNetworkMonitor.m */; };
+		904C31151FA9AD8800B2596A /* NSString+WebService.m in Sources */ = {isa = PBXBuildFile; fileRef = 904C30FD1FA9AD8700B2596A /* NSString+WebService.m */; };
+		904C31161FA9AD8800B2596A /* WSQueryFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 904C30FE1FA9AD8700B2596A /* WSQueryFormat.m */; };
+		904C31171FA9AD8800B2596A /* NSError+WebServie.m in Sources */ = {isa = PBXBuildFile; fileRef = 904C30FF1FA9AD8700B2596A /* NSError+WebServie.m */; };
+		904C31181FA9AD8800B2596A /* WSNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 904C31001FA9AD8700B2596A /* WSNetworkConfig.m */; };
+		904C31191FA9AD8800B2596A /* WSMultipartFormData.m in Sources */ = {isa = PBXBuildFile; fileRef = 904C31021FA9AD8700B2596A /* WSMultipartFormData.m */; };
+		904C311A1FA9AD8800B2596A /* WSRequestAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 904C31051FA9AD8700B2596A /* WSRequestAgent.m */; };
+		904C311B1FA9AD8800B2596A /* WSNetworkTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 904C310A1FA9AD8700B2596A /* WSNetworkTool.m */; };
+		904C311C1FA9AD8800B2596A /* WSRequestTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 904C310F1FA9AD8700B2596A /* WSRequestTask.m */; };
+		904C311D1FA9AD8800B2596A /* WSNetWorkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 904C31111FA9AD8700B2596A /* WSNetWorkClient.m */; };
+		904C311E1FA9AD8800B2596A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 904C31131FA9AD8700B2596A /* Info.plist */; };
+		904C311F1FA9ADD400B2596A /* WSNetworkMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 904C30FC1FA9AD8700B2596A /* WSNetworkMonitor.m */; };
+		904C31201FA9ADD400B2596A /* NSString+WebService.m in Sources */ = {isa = PBXBuildFile; fileRef = 904C30FD1FA9AD8700B2596A /* NSString+WebService.m */; };
+		904C31211FA9ADD400B2596A /* WSQueryFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 904C30FE1FA9AD8700B2596A /* WSQueryFormat.m */; };
+		904C31221FA9ADD400B2596A /* NSError+WebServie.m in Sources */ = {isa = PBXBuildFile; fileRef = 904C30FF1FA9AD8700B2596A /* NSError+WebServie.m */; };
+		904C31231FA9ADD400B2596A /* WSNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 904C31001FA9AD8700B2596A /* WSNetworkConfig.m */; };
+		904C31241FA9ADD400B2596A /* WSMultipartFormData.m in Sources */ = {isa = PBXBuildFile; fileRef = 904C31021FA9AD8700B2596A /* WSMultipartFormData.m */; };
+		904C31251FA9ADD400B2596A /* WSRequestAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 904C31051FA9AD8700B2596A /* WSRequestAgent.m */; };
+		904C31261FA9ADD400B2596A /* WSNetworkTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 904C310A1FA9AD8700B2596A /* WSNetworkTool.m */; };
+		904C31271FA9ADD400B2596A /* WSRequestTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 904C310F1FA9AD8700B2596A /* WSRequestTask.m */; };
+		904C31281FA9ADD400B2596A /* WSNetWorkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 904C31111FA9AD8700B2596A /* WSNetWorkClient.m */; };
+		904C31291FA9ADEE00B2596A /* WSRequestAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = 904C30FB1FA9AD8700B2596A /* WSRequestAgent.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		904C312A1FA9ADEE00B2596A /* WSNetworkTool.h in Headers */ = {isa = PBXBuildFile; fileRef = 904C31011FA9AD8700B2596A /* WSNetworkTool.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		904C312B1FA9ADEE00B2596A /* NSString+WebService.h in Headers */ = {isa = PBXBuildFile; fileRef = 904C31031FA9AD8700B2596A /* NSString+WebService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		904C312C1FA9ADEE00B2596A /* WSNetworkMonitor.h in Headers */ = {isa = PBXBuildFile; fileRef = 904C31041FA9AD8700B2596A /* WSNetworkMonitor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		904C312D1FA9ADEE00B2596A /* NSError+WebServie.h in Headers */ = {isa = PBXBuildFile; fileRef = 904C31061FA9AD8700B2596A /* NSError+WebServie.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		904C312E1FA9ADEE00B2596A /* WSQueryFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 904C31071FA9AD8700B2596A /* WSQueryFormat.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		904C312F1FA9ADEE00B2596A /* WSNetworkConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 904C31081FA9AD8700B2596A /* WSNetworkConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		904C31301FA9ADEE00B2596A /* WSMultipartFormData.h in Headers */ = {isa = PBXBuildFile; fileRef = 904C31091FA9AD8700B2596A /* WSMultipartFormData.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		904C31321FA9ADEE00B2596A /* WSRequestTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 904C310C1FA9AD8700B2596A /* WSRequestTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		904C31331FA9ADEE00B2596A /* WSTypeDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 904C310D1FA9AD8700B2596A /* WSTypeDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		904C31341FA9ADEE00B2596A /* WSRequestCallbackProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 904C310E1FA9AD8700B2596A /* WSRequestCallbackProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		904C31351FA9ADEE00B2596A /* WSNetWorkClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 904C31121FA9AD8700B2596A /* WSNetWorkClient.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		904C314E1FA9B69600B2596A /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 904C314D1FA9B69500B2596A /* AFNetworking.framework */; };
+		904C314F1FA9B69600B2596A /* AFNetworking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 904C314D1FA9B69500B2596A /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		90A9D3691EAF2AC000AD531A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3681EAF2AC000AD531A /* main.m */; };
 		90A9D36C1EAF2AC000AD531A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D36B1EAF2AC000AD531A /* AppDelegate.m */; };
 		90A9D36F1EAF2AC000AD531A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D36E1EAF2AC000AD531A /* ViewController.m */; };
 		90A9D3721EAF2AC000AD531A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90A9D3701EAF2AC000AD531A /* Main.storyboard */; };
 		90A9D3741EAF2AC000AD531A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90A9D3731EAF2AC000AD531A /* Assets.xcassets */; };
 		90A9D3771EAF2AC000AD531A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90A9D3751EAF2AC000AD531A /* LaunchScreen.storyboard */; };
-		90A9D3BC1EAF316400AD531A /* NSError+WebServie.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3A51EAF316400AD531A /* NSError+WebServie.m */; };
-		90A9D3BD1EAF316400AD531A /* NSString+WebService.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3A71EAF316400AD531A /* NSString+WebService.m */; };
-		90A9D3BE1EAF316400AD531A /* WSMultipartFormData.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3A91EAF316400AD531A /* WSMultipartFormData.m */; };
-		90A9D3BF1EAF316400AD531A /* WSNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3AB1EAF316400AD531A /* WSNetworkConfig.m */; };
-		90A9D3C01EAF316400AD531A /* WSNetworkMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3AD1EAF316400AD531A /* WSNetworkMonitor.m */; };
-		90A9D3C11EAF316400AD531A /* WSQueryFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3AF1EAF316400AD531A /* WSQueryFormat.m */; };
-		90A9D3C21EAF316400AD531A /* WSRequestAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3B11EAF316400AD531A /* WSRequestAgent.m */; };
-		90A9D3C41EAF316400AD531A /* WSNetWorkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3B61EAF316400AD531A /* WSNetWorkClient.m */; };
-		90A9D3C51EAF316400AD531A /* WSRequestTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A9D3BA1EAF316400AD531A /* WSRequestTask.m */; };
 		90E7DB8D1EFB5FE8007F9786 /* HMBaseRequestTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E7DB8C1EFB5FE8007F9786 /* HMBaseRequestTask.m */; };
 		90E7DB901EFB61E3007F9786 /* HMUserInfoRequestTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E7DB8F1EFB61E3007F9786 /* HMUserInfoRequestTask.m */; };
 		90E7DB931EFB67DD007F9786 /* HMTrainingPopularTopicsRequestTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E7DB921EFB67DD007F9786 /* HMTrainingPopularTopicsRequestTask.m */; };
 		90E7DB9C1EFBAEAF007F9786 /* HMDownLoadRequestTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E7DB9B1EFBAEAF007F9786 /* HMDownLoadRequestTask.m */; };
-		ED8F56DCC90FC1CF356FCF6A /* libPods-DDWebServiceDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7CAA1904910192850496F94 /* libPods-DDWebServiceDemo.a */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		904C30F11FA9AD6000B2596A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 90A9D35C1EAF2AC000AD531A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 904C30EB1FA9AD6000B2596A;
+			remoteInfo = DDWebService;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		904C30F81FA9AD6000B2596A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				904C30F41FA9AD6000B2596A /* DDWebService.framework in Embed Frameworks */,
+				904C314F1FA9B69600B2596A /* AFNetworking.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		09795391755D6316AD2B5FD2 /* Pods-DDWebServiceDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DDWebServiceDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-DDWebServiceDemo/Pods-DDWebServiceDemo.release.xcconfig"; sourceTree = "<group>"; };
-		0F4FA5BA4E117B26FDD8A7E3 /* Pods-DDWebServiceDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DDWebServiceDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DDWebServiceDemo/Pods-DDWebServiceDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		908C5BD31EFA7FF000C12464 /* WSNetworkTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WSNetworkTool.h; sourceTree = "<group>"; };
-		908C5BD41EFA7FF000C12464 /* WSNetworkTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WSNetworkTool.m; sourceTree = "<group>"; };
+		904C30EC1FA9AD6000B2596A /* DDWebService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DDWebService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		904C30FB1FA9AD8700B2596A /* WSRequestAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSRequestAgent.h; sourceTree = "<group>"; };
+		904C30FC1FA9AD8700B2596A /* WSNetworkMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSNetworkMonitor.m; sourceTree = "<group>"; };
+		904C30FD1FA9AD8700B2596A /* NSString+WebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+WebService.m"; sourceTree = "<group>"; };
+		904C30FE1FA9AD8700B2596A /* WSQueryFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSQueryFormat.m; sourceTree = "<group>"; };
+		904C30FF1FA9AD8700B2596A /* NSError+WebServie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+WebServie.m"; sourceTree = "<group>"; };
+		904C31001FA9AD8700B2596A /* WSNetworkConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSNetworkConfig.m; sourceTree = "<group>"; };
+		904C31011FA9AD8700B2596A /* WSNetworkTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSNetworkTool.h; sourceTree = "<group>"; };
+		904C31021FA9AD8700B2596A /* WSMultipartFormData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSMultipartFormData.m; sourceTree = "<group>"; };
+		904C31031FA9AD8700B2596A /* NSString+WebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WebService.h"; sourceTree = "<group>"; };
+		904C31041FA9AD8700B2596A /* WSNetworkMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSNetworkMonitor.h; sourceTree = "<group>"; };
+		904C31051FA9AD8700B2596A /* WSRequestAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSRequestAgent.m; sourceTree = "<group>"; };
+		904C31061FA9AD8700B2596A /* NSError+WebServie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+WebServie.h"; sourceTree = "<group>"; };
+		904C31071FA9AD8700B2596A /* WSQueryFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSQueryFormat.h; sourceTree = "<group>"; };
+		904C31081FA9AD8700B2596A /* WSNetworkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSNetworkConfig.h; sourceTree = "<group>"; };
+		904C31091FA9AD8700B2596A /* WSMultipartFormData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSMultipartFormData.h; sourceTree = "<group>"; };
+		904C310A1FA9AD8700B2596A /* WSNetworkTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSNetworkTool.m; sourceTree = "<group>"; };
+		904C310C1FA9AD8700B2596A /* WSRequestTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSRequestTask.h; sourceTree = "<group>"; };
+		904C310D1FA9AD8700B2596A /* WSTypeDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSTypeDefines.h; sourceTree = "<group>"; };
+		904C310E1FA9AD8700B2596A /* WSRequestCallbackProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSRequestCallbackProtocol.h; sourceTree = "<group>"; };
+		904C310F1FA9AD8700B2596A /* WSRequestTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSRequestTask.m; sourceTree = "<group>"; };
+		904C31111FA9AD8700B2596A /* WSNetWorkClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSNetWorkClient.m; sourceTree = "<group>"; };
+		904C31121FA9AD8700B2596A /* WSNetWorkClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSNetWorkClient.h; sourceTree = "<group>"; };
+		904C31131FA9AD8700B2596A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		904C314D1FA9B69500B2596A /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = DDWebServiceDemo/AFNetworking.framework; sourceTree = "<group>"; };
 		90A9D3641EAF2AC000AD531A /* DDWebServiceDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DDWebServiceDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90A9D3681EAF2AC000AD531A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		90A9D36A1EAF2AC000AD531A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -45,26 +116,6 @@
 		90A9D3731EAF2AC000AD531A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		90A9D3761EAF2AC000AD531A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		90A9D3781EAF2AC000AD531A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		90A9D3A41EAF316400AD531A /* NSError+WebServie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+WebServie.h"; sourceTree = "<group>"; };
-		90A9D3A51EAF316400AD531A /* NSError+WebServie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+WebServie.m"; sourceTree = "<group>"; };
-		90A9D3A61EAF316400AD531A /* NSString+WebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WebService.h"; sourceTree = "<group>"; };
-		90A9D3A71EAF316400AD531A /* NSString+WebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+WebService.m"; sourceTree = "<group>"; };
-		90A9D3A81EAF316400AD531A /* WSMultipartFormData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSMultipartFormData.h; sourceTree = "<group>"; };
-		90A9D3A91EAF316400AD531A /* WSMultipartFormData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSMultipartFormData.m; sourceTree = "<group>"; };
-		90A9D3AA1EAF316400AD531A /* WSNetworkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSNetworkConfig.h; sourceTree = "<group>"; };
-		90A9D3AB1EAF316400AD531A /* WSNetworkConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSNetworkConfig.m; sourceTree = "<group>"; };
-		90A9D3AC1EAF316400AD531A /* WSNetworkMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSNetworkMonitor.h; sourceTree = "<group>"; };
-		90A9D3AD1EAF316400AD531A /* WSNetworkMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSNetworkMonitor.m; sourceTree = "<group>"; };
-		90A9D3AE1EAF316400AD531A /* WSQueryFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSQueryFormat.h; sourceTree = "<group>"; };
-		90A9D3AF1EAF316400AD531A /* WSQueryFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSQueryFormat.m; sourceTree = "<group>"; };
-		90A9D3B01EAF316400AD531A /* WSRequestAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSRequestAgent.h; sourceTree = "<group>"; };
-		90A9D3B11EAF316400AD531A /* WSRequestAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSRequestAgent.m; sourceTree = "<group>"; };
-		90A9D3B51EAF316400AD531A /* WSNetWorkClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSNetWorkClient.h; sourceTree = "<group>"; };
-		90A9D3B61EAF316400AD531A /* WSNetWorkClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSNetWorkClient.m; sourceTree = "<group>"; };
-		90A9D3B81EAF316400AD531A /* WSRequestCallbackProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSRequestCallbackProtocol.h; sourceTree = "<group>"; };
-		90A9D3B91EAF316400AD531A /* WSRequestTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSRequestTask.h; sourceTree = "<group>"; };
-		90A9D3BA1EAF316400AD531A /* WSRequestTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSRequestTask.m; sourceTree = "<group>"; };
-		90A9D3BB1EAF316400AD531A /* WSTypeDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSTypeDefines.h; sourceTree = "<group>"; };
 		90E7DB8B1EFB5FE8007F9786 /* HMBaseRequestTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HMBaseRequestTask.h; sourceTree = "<group>"; };
 		90E7DB8C1EFB5FE8007F9786 /* HMBaseRequestTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HMBaseRequestTask.m; sourceTree = "<group>"; };
 		90E7DB8E1EFB61E3007F9786 /* HMUserInfoRequestTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HMUserInfoRequestTask.h; sourceTree = "<group>"; };
@@ -73,38 +124,97 @@
 		90E7DB921EFB67DD007F9786 /* HMTrainingPopularTopicsRequestTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HMTrainingPopularTopicsRequestTask.m; sourceTree = "<group>"; };
 		90E7DB9A1EFBAEAF007F9786 /* HMDownLoadRequestTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HMDownLoadRequestTask.h; sourceTree = "<group>"; };
 		90E7DB9B1EFBAEAF007F9786 /* HMDownLoadRequestTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HMDownLoadRequestTask.m; sourceTree = "<group>"; };
-		D7CAA1904910192850496F94 /* libPods-DDWebServiceDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DDWebServiceDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		904C30E81FA9AD6000B2596A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		90A9D3611EAF2AC000AD531A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED8F56DCC90FC1CF356FCF6A /* libPods-DDWebServiceDemo.a in Frameworks */,
+				904C314E1FA9B69600B2596A /* AFNetworking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		466310025BAC02D3890B220C /* Pods */ = {
+		904C30F91FA9AD8700B2596A /* DDWebService */ = {
 			isa = PBXGroup;
 			children = (
-				0F4FA5BA4E117B26FDD8A7E3 /* Pods-DDWebServiceDemo.debug.xcconfig */,
-				09795391755D6316AD2B5FD2 /* Pods-DDWebServiceDemo.release.xcconfig */,
+				904C30FA1FA9AD8700B2596A /* Auxfun */,
+				904C310B1FA9AD8700B2596A /* Task */,
+				904C31101FA9AD8700B2596A /* Client */,
+				904C31131FA9AD8700B2596A /* Info.plist */,
 			);
-			name = Pods;
+			name = DDWebService;
+			path = ../DDWebService;
+			sourceTree = "<group>";
+		};
+		904C30FA1FA9AD8700B2596A /* Auxfun */ = {
+			isa = PBXGroup;
+			children = (
+				904C30FB1FA9AD8700B2596A /* WSRequestAgent.h */,
+				904C30FC1FA9AD8700B2596A /* WSNetworkMonitor.m */,
+				904C30FD1FA9AD8700B2596A /* NSString+WebService.m */,
+				904C30FE1FA9AD8700B2596A /* WSQueryFormat.m */,
+				904C30FF1FA9AD8700B2596A /* NSError+WebServie.m */,
+				904C31001FA9AD8700B2596A /* WSNetworkConfig.m */,
+				904C31011FA9AD8700B2596A /* WSNetworkTool.h */,
+				904C31021FA9AD8700B2596A /* WSMultipartFormData.m */,
+				904C31031FA9AD8700B2596A /* NSString+WebService.h */,
+				904C31041FA9AD8700B2596A /* WSNetworkMonitor.h */,
+				904C31051FA9AD8700B2596A /* WSRequestAgent.m */,
+				904C31061FA9AD8700B2596A /* NSError+WebServie.h */,
+				904C31071FA9AD8700B2596A /* WSQueryFormat.h */,
+				904C31081FA9AD8700B2596A /* WSNetworkConfig.h */,
+				904C31091FA9AD8700B2596A /* WSMultipartFormData.h */,
+				904C310A1FA9AD8700B2596A /* WSNetworkTool.m */,
+			);
+			path = Auxfun;
+			sourceTree = "<group>";
+		};
+		904C310B1FA9AD8700B2596A /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				904C310C1FA9AD8700B2596A /* WSRequestTask.h */,
+				904C310D1FA9AD8700B2596A /* WSTypeDefines.h */,
+				904C310E1FA9AD8700B2596A /* WSRequestCallbackProtocol.h */,
+				904C310F1FA9AD8700B2596A /* WSRequestTask.m */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
+		904C31101FA9AD8700B2596A /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				904C31111FA9AD8700B2596A /* WSNetWorkClient.m */,
+				904C31121FA9AD8700B2596A /* WSNetWorkClient.h */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		904C31361FA9B24200B2596A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		90A9D35B1EAF2AC000AD531A = {
 			isa = PBXGroup;
 			children = (
-				90A9D3A21EAF316400AD531A /* DDWebService */,
+				904C314D1FA9B69500B2596A /* AFNetworking.framework */,
+				904C30F91FA9AD8700B2596A /* DDWebService */,
 				90A9D3661EAF2AC000AD531A /* DDWebServiceDemo */,
 				90A9D3651EAF2AC000AD531A /* Products */,
-				466310025BAC02D3890B220C /* Pods */,
-				A98A2D2EBCC582A83B29F135 /* Frameworks */,
+				904C31361FA9B24200B2596A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -112,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				90A9D3641EAF2AC000AD531A /* DDWebServiceDemo.app */,
+				904C30EC1FA9AD6000B2596A /* DDWebService.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -148,85 +259,62 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		90A9D3A21EAF316400AD531A /* DDWebService */ = {
-			isa = PBXGroup;
-			children = (
-				90A9D3A31EAF316400AD531A /* Auxfun */,
-				90A9D3B41EAF316400AD531A /* Client */,
-				90A9D3B71EAF316400AD531A /* Task */,
-			);
-			name = DDWebService;
-			path = ../DDWebService;
-			sourceTree = "<group>";
-		};
-		90A9D3A31EAF316400AD531A /* Auxfun */ = {
-			isa = PBXGroup;
-			children = (
-				90A9D3A41EAF316400AD531A /* NSError+WebServie.h */,
-				90A9D3A51EAF316400AD531A /* NSError+WebServie.m */,
-				90A9D3A61EAF316400AD531A /* NSString+WebService.h */,
-				90A9D3A71EAF316400AD531A /* NSString+WebService.m */,
-				90A9D3A81EAF316400AD531A /* WSMultipartFormData.h */,
-				90A9D3A91EAF316400AD531A /* WSMultipartFormData.m */,
-				90A9D3AA1EAF316400AD531A /* WSNetworkConfig.h */,
-				90A9D3AB1EAF316400AD531A /* WSNetworkConfig.m */,
-				90A9D3AC1EAF316400AD531A /* WSNetworkMonitor.h */,
-				90A9D3AD1EAF316400AD531A /* WSNetworkMonitor.m */,
-				90A9D3AE1EAF316400AD531A /* WSQueryFormat.h */,
-				90A9D3AF1EAF316400AD531A /* WSQueryFormat.m */,
-				90A9D3B01EAF316400AD531A /* WSRequestAgent.h */,
-				90A9D3B11EAF316400AD531A /* WSRequestAgent.m */,
-				908C5BD31EFA7FF000C12464 /* WSNetworkTool.h */,
-				908C5BD41EFA7FF000C12464 /* WSNetworkTool.m */,
-			);
-			path = Auxfun;
-			sourceTree = "<group>";
-		};
-		90A9D3B41EAF316400AD531A /* Client */ = {
-			isa = PBXGroup;
-			children = (
-				90A9D3B51EAF316400AD531A /* WSNetWorkClient.h */,
-				90A9D3B61EAF316400AD531A /* WSNetWorkClient.m */,
-			);
-			path = Client;
-			sourceTree = "<group>";
-		};
-		90A9D3B71EAF316400AD531A /* Task */ = {
-			isa = PBXGroup;
-			children = (
-				90A9D3B81EAF316400AD531A /* WSRequestCallbackProtocol.h */,
-				90A9D3B91EAF316400AD531A /* WSRequestTask.h */,
-				90A9D3BA1EAF316400AD531A /* WSRequestTask.m */,
-				90A9D3BB1EAF316400AD531A /* WSTypeDefines.h */,
-			);
-			path = Task;
-			sourceTree = "<group>";
-		};
-		A98A2D2EBCC582A83B29F135 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D7CAA1904910192850496F94 /* libPods-DDWebServiceDemo.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		904C30E91FA9AD6000B2596A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				904C312A1FA9ADEE00B2596A /* WSNetworkTool.h in Headers */,
+				904C31321FA9ADEE00B2596A /* WSRequestTask.h in Headers */,
+				904C31331FA9ADEE00B2596A /* WSTypeDefines.h in Headers */,
+				904C31341FA9ADEE00B2596A /* WSRequestCallbackProtocol.h in Headers */,
+				904C312C1FA9ADEE00B2596A /* WSNetworkMonitor.h in Headers */,
+				904C312B1FA9ADEE00B2596A /* NSString+WebService.h in Headers */,
+				904C312F1FA9ADEE00B2596A /* WSNetworkConfig.h in Headers */,
+				904C312D1FA9ADEE00B2596A /* NSError+WebServie.h in Headers */,
+				904C31291FA9ADEE00B2596A /* WSRequestAgent.h in Headers */,
+				904C312E1FA9ADEE00B2596A /* WSQueryFormat.h in Headers */,
+				904C31301FA9ADEE00B2596A /* WSMultipartFormData.h in Headers */,
+				904C31351FA9ADEE00B2596A /* WSNetWorkClient.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		90A9D3631EAF2AC000AD531A /* DDWebServiceDemo */ = {
+		904C30EB1FA9AD6000B2596A /* DDWebService */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 90A9D37B1EAF2AC000AD531A /* Build configuration list for PBXNativeTarget "DDWebServiceDemo" */;
+			buildConfigurationList = 904C30F51FA9AD6000B2596A /* Build configuration list for PBXNativeTarget "DDWebService" */;
 			buildPhases = (
-				DEEFC215D7EAE440A088EA97 /* [CP] Check Pods Manifest.lock */,
-				90A9D3601EAF2AC000AD531A /* Sources */,
-				90A9D3611EAF2AC000AD531A /* Frameworks */,
-				90A9D3621EAF2AC000AD531A /* Resources */,
-				6FB500B36789793EE3D2D3E0 /* [CP] Embed Pods Frameworks */,
-				5B04FECAACB02D01B851646B /* [CP] Copy Pods Resources */,
+				904C30E71FA9AD6000B2596A /* Sources */,
+				904C30E81FA9AD6000B2596A /* Frameworks */,
+				904C30E91FA9AD6000B2596A /* Headers */,
+				904C30EA1FA9AD6000B2596A /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+			);
+			name = DDWebService;
+			productName = DDWebService;
+			productReference = 904C30EC1FA9AD6000B2596A /* DDWebService.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		90A9D3631EAF2AC000AD531A /* DDWebServiceDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 90A9D37B1EAF2AC000AD531A /* Build configuration list for PBXNativeTarget "DDWebServiceDemo" */;
+			buildPhases = (
+				90A9D3601EAF2AC000AD531A /* Sources */,
+				90A9D3611EAF2AC000AD531A /* Frameworks */,
+				90A9D3621EAF2AC000AD531A /* Resources */,
+				904C30F81FA9AD6000B2596A /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				904C30F21FA9AD6000B2596A /* PBXTargetDependency */,
 			);
 			name = DDWebServiceDemo;
 			productName = DDWebServiceDemo;
@@ -242,6 +330,11 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = huami;
 				TargetAttributes = {
+					904C30EB1FA9AD6000B2596A = {
+						CreatedOnToolsVersion = 9.0.1;
+						DevelopmentTeam = BPBCHD64GW;
+						ProvisioningStyle = Automatic;
+					};
 					90A9D3631EAF2AC000AD531A = {
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = BPBCHD64GW;
@@ -263,15 +356,24 @@
 			projectRoot = "";
 			targets = (
 				90A9D3631EAF2AC000AD531A /* DDWebServiceDemo */,
+				904C30EB1FA9AD6000B2596A /* DDWebService */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		904C30EA1FA9AD6000B2596A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		90A9D3621EAF2AC000AD531A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				904C311E1FA9AD8800B2596A /* Info.plist in Resources */,
 				90A9D3771EAF2AC000AD531A /* LaunchScreen.storyboard in Resources */,
 				90A9D3741EAF2AC000AD531A /* Assets.xcassets in Resources */,
 				90A9D3721EAF2AC000AD531A /* Main.storyboard in Resources */,
@@ -280,80 +382,57 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		5B04FECAACB02D01B851646B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DDWebServiceDemo/Pods-DDWebServiceDemo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6FB500B36789793EE3D2D3E0 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DDWebServiceDemo/Pods-DDWebServiceDemo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DEEFC215D7EAE440A088EA97 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
+		904C30E71FA9AD6000B2596A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				904C311F1FA9ADD400B2596A /* WSNetworkMonitor.m in Sources */,
+				904C31201FA9ADD400B2596A /* NSString+WebService.m in Sources */,
+				904C31211FA9ADD400B2596A /* WSQueryFormat.m in Sources */,
+				904C31221FA9ADD400B2596A /* NSError+WebServie.m in Sources */,
+				904C31231FA9ADD400B2596A /* WSNetworkConfig.m in Sources */,
+				904C31241FA9ADD400B2596A /* WSMultipartFormData.m in Sources */,
+				904C31251FA9ADD400B2596A /* WSRequestAgent.m in Sources */,
+				904C31261FA9ADD400B2596A /* WSNetworkTool.m in Sources */,
+				904C31271FA9ADD400B2596A /* WSRequestTask.m in Sources */,
+				904C31281FA9ADD400B2596A /* WSNetWorkClient.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		90A9D3601EAF2AC000AD531A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90A9D3C11EAF316400AD531A /* WSQueryFormat.m in Sources */,
+				904C311C1FA9AD8800B2596A /* WSRequestTask.m in Sources */,
+				904C31191FA9AD8800B2596A /* WSMultipartFormData.m in Sources */,
 				90E7DB931EFB67DD007F9786 /* HMTrainingPopularTopicsRequestTask.m in Sources */,
-				90A9D3BC1EAF316400AD531A /* NSError+WebServie.m in Sources */,
+				904C31141FA9AD8800B2596A /* WSNetworkMonitor.m in Sources */,
 				90E7DB9C1EFBAEAF007F9786 /* HMDownLoadRequestTask.m in Sources */,
-				908C5BD51EFA7FF000C12464 /* WSNetworkTool.m in Sources */,
-				90A9D3C01EAF316400AD531A /* WSNetworkMonitor.m in Sources */,
+				904C31161FA9AD8800B2596A /* WSQueryFormat.m in Sources */,
+				904C311B1FA9AD8800B2596A /* WSNetworkTool.m in Sources */,
 				90E7DB901EFB61E3007F9786 /* HMUserInfoRequestTask.m in Sources */,
 				90E7DB8D1EFB5FE8007F9786 /* HMBaseRequestTask.m in Sources */,
-				90A9D3BF1EAF316400AD531A /* WSNetworkConfig.m in Sources */,
+				904C311A1FA9AD8800B2596A /* WSRequestAgent.m in Sources */,
 				90A9D36F1EAF2AC000AD531A /* ViewController.m in Sources */,
-				90A9D3BE1EAF316400AD531A /* WSMultipartFormData.m in Sources */,
-				90A9D3BD1EAF316400AD531A /* NSString+WebService.m in Sources */,
-				90A9D3C41EAF316400AD531A /* WSNetWorkClient.m in Sources */,
 				90A9D36C1EAF2AC000AD531A /* AppDelegate.m in Sources */,
+				904C31171FA9AD8800B2596A /* NSError+WebServie.m in Sources */,
 				90A9D3691EAF2AC000AD531A /* main.m in Sources */,
-				90A9D3C21EAF316400AD531A /* WSRequestAgent.m in Sources */,
-				90A9D3C51EAF316400AD531A /* WSRequestTask.m in Sources */,
+				904C31181FA9AD8800B2596A /* WSNetworkConfig.m in Sources */,
+				904C311D1FA9AD8800B2596A /* WSNetWorkClient.m in Sources */,
+				904C31151FA9AD8800B2596A /* NSString+WebService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		904C30F21FA9AD6000B2596A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 904C30EB1FA9AD6000B2596A /* DDWebService */;
+			targetProxy = 904C30F11FA9AD6000B2596A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		90A9D3701EAF2AC000AD531A /* Main.storyboard */ = {
@@ -375,6 +454,82 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		904C30F61FA9AD6000B2596A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = BPBCHD64GW;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/DDWebServiceDemo",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "$(SRCROOT)/../DDWebService/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.huami.DDWebService;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		904C30F71FA9AD6000B2596A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = BPBCHD64GW;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/DDWebServiceDemo",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "$(SRCROOT)/../DDWebService/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.huami.DDWebService;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		90A9D3791EAF2AC000AD531A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -416,7 +571,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -458,7 +613,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -467,10 +622,14 @@
 		};
 		90A9D37C1EAF2AC000AD531A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0F4FA5BA4E117B26FDD8A7E3 /* Pods-DDWebServiceDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = BPBCHD64GW;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/DDWebServiceDemo",
+				);
 				INFOPLIST_FILE = DDWebServiceDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -481,10 +640,14 @@
 		};
 		90A9D37D1EAF2AC000AD531A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 09795391755D6316AD2B5FD2 /* Pods-DDWebServiceDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = BPBCHD64GW;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/DDWebServiceDemo",
+				);
 				INFOPLIST_FILE = DDWebServiceDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -496,6 +659,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		904C30F51FA9AD6000B2596A /* Build configuration list for PBXNativeTarget "DDWebService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				904C30F61FA9AD6000B2596A /* Debug */,
+				904C30F71FA9AD6000B2596A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		90A9D35F1EAF2AC000AD531A /* Build configuration list for PBXProject "DDWebServiceDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
