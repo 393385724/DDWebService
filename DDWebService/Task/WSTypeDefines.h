@@ -9,6 +9,10 @@
 #ifndef WSTypeDefines_h
 #define WSTypeDefines_h
 
+typedef NSString WSHTTPHeaderKey;
+
+static WSHTTPHeaderKey * const WSHTTPHeaderKey_AcceptLanguage = @"Accept-Language";
+static WSHTTPHeaderKey * const WSHTTPHeaderKey_UserAgent = @"User-Agent";
 
 /**
  HTTP请求方式

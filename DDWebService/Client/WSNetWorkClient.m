@@ -15,6 +15,7 @@
 #import "WSMultipartFormData.h"
 #import "WSNetworkConfig.h"
 #import "WSNetworkTool.h"
+#import "AFHTTPRequestSerializer+WSHTTPHeader.h"
 
 @interface WSNetWorkClient ()
 /**
@@ -123,10 +124,13 @@
     WSRequestContentType contentType = [requestModel requestSerializerType];
     AFHTTPRequestSerializer *requestSerializer = nil;
     if (contentType == WSRequestContentTypeURLEncoded) {
+        AFHTTPRequestSerializer.wsIgnoreHeaderKeys = requestModel.ignoreHeaderKeys;
         requestSerializer = [AFHTTPRequestSerializer serializer];
     } else if (contentType == WSRequestContentTypeJson) {
+        AFJSONRequestSerializer.wsIgnoreHeaderKeys = requestModel.ignoreHeaderKeys;
         requestSerializer = [AFJSONRequestSerializer serializer];
     } else if (contentType == WSRequestContentTypeXPlist) {
+        AFPropertyListRequestSerializer.wsIgnoreHeaderKeys = requestModel.ignoreHeaderKeys;
         requestSerializer = [AFPropertyListRequestSerializer serializer];
     }
     

@@ -28,6 +28,7 @@
         self.apptoken = @"TQVBQEZyQktGXip6SltGMl4qMl56RAQABAAAAAGsbS27QGZR16A1tNqtNtaSisLz2EvoXyxAnfuRskT1fphHmlv2DBYr5BTaQ6SFKjlRB-2-nBdLsehaicqVokL3ghxjvygv1rXOfJZDtvnq1uBLU-RtMd8Pg4YthadwNqUjWXbQmZIjmMvoTQIzvbUgUyrMWMMiKAjMj_yUDDXBGF4a1xpsDfjsLXzNyJSK38HSyvsplbA4k-TvIfgKHXf0";
         self.userId = @"1000000011";
         self.appname = @"com.huami.shushan";
+        self.ignoreHeaderKeys = @[WSHTTPHeaderKey_AcceptLanguage];
     }
     return self;
 }

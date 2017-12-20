@@ -41,6 +41,10 @@
  */
 @property (nonatomic, readonly) NSMutableDictionary <NSString *, NSString *> *headerDictionary;
 /**
+ 忽略自定义的Header默认使用系统
+ */
+@property (nonatomic, copy) NSArray <WSHTTPHeaderKey *> *ignoreHeaderKeys;
+/**
  自定义的上行参数, NSMutableDictionary or NSMutableArray 由bodyJsonType决定类型
  */
 @property (nonatomic, readonly) id parameter;

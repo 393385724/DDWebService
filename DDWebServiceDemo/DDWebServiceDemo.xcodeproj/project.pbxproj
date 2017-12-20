@@ -49,6 +49,7 @@
 		90A9D3721EAF2AC000AD531A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90A9D3701EAF2AC000AD531A /* Main.storyboard */; };
 		90A9D3741EAF2AC000AD531A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90A9D3731EAF2AC000AD531A /* Assets.xcassets */; };
 		90A9D3771EAF2AC000AD531A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90A9D3751EAF2AC000AD531A /* LaunchScreen.storyboard */; };
+		90DA2C2C1FEA2B250046CC08 /* AFHTTPRequestSerializer+WSHTTPHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DA2C2B1FEA2B250046CC08 /* AFHTTPRequestSerializer+WSHTTPHeader.m */; };
 		90E7DB8D1EFB5FE8007F9786 /* HMBaseRequestTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E7DB8C1EFB5FE8007F9786 /* HMBaseRequestTask.m */; };
 		90E7DB901EFB61E3007F9786 /* HMUserInfoRequestTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E7DB8F1EFB61E3007F9786 /* HMUserInfoRequestTask.m */; };
 		90E7DB931EFB67DD007F9786 /* HMTrainingPopularTopicsRequestTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E7DB921EFB67DD007F9786 /* HMTrainingPopularTopicsRequestTask.m */; };
@@ -116,6 +117,8 @@
 		90A9D3731EAF2AC000AD531A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		90A9D3761EAF2AC000AD531A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		90A9D3781EAF2AC000AD531A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		90DA2C2A1FEA2B250046CC08 /* AFHTTPRequestSerializer+WSHTTPHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AFHTTPRequestSerializer+WSHTTPHeader.h"; sourceTree = "<group>"; };
+		90DA2C2B1FEA2B250046CC08 /* AFHTTPRequestSerializer+WSHTTPHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AFHTTPRequestSerializer+WSHTTPHeader.m"; sourceTree = "<group>"; };
 		90E7DB8B1EFB5FE8007F9786 /* HMBaseRequestTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HMBaseRequestTask.h; sourceTree = "<group>"; };
 		90E7DB8C1EFB5FE8007F9786 /* HMBaseRequestTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HMBaseRequestTask.m; sourceTree = "<group>"; };
 		90E7DB8E1EFB61E3007F9786 /* HMUserInfoRequestTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HMUserInfoRequestTask.h; sourceTree = "<group>"; };
@@ -176,6 +179,8 @@
 				904C31081FA9AD8700B2596A /* WSNetworkConfig.h */,
 				904C31091FA9AD8700B2596A /* WSMultipartFormData.h */,
 				904C310A1FA9AD8700B2596A /* WSNetworkTool.m */,
+				90DA2C2A1FEA2B250046CC08 /* AFHTTPRequestSerializer+WSHTTPHeader.h */,
+				90DA2C2B1FEA2B250046CC08 /* AFHTTPRequestSerializer+WSHTTPHeader.m */,
 			);
 			path = Auxfun;
 			sourceTree = "<group>";
@@ -417,6 +422,7 @@
 				90A9D36F1EAF2AC000AD531A /* ViewController.m in Sources */,
 				90A9D36C1EAF2AC000AD531A /* AppDelegate.m in Sources */,
 				904C31171FA9AD8800B2596A /* NSError+WebServie.m in Sources */,
+				90DA2C2C1FEA2B250046CC08 /* AFHTTPRequestSerializer+WSHTTPHeader.m in Sources */,
 				90A9D3691EAF2AC000AD531A /* main.m in Sources */,
 				904C31181FA9AD8800B2596A /* WSNetworkConfig.m in Sources */,
 				904C311D1FA9AD8800B2596A /* WSNetWorkClient.m in Sources */,
