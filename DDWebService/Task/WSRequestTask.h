@@ -80,6 +80,10 @@
  */
 @property (nonatomic, readonly) NSInteger responseStatusCode;
 /**
+ 最终请求地址IP,解析失败会为nil
+ */
+@property (nonatomic, readonly) NSString *ipAddress;
+/**
  服务器请求返回的原始数据(未做任何处理，子类及外部只可读取)
  */
 @property (nonatomic, strong) id responseRawObject;

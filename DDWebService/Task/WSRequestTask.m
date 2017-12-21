@@ -8,6 +8,7 @@
 
 #import "WSRequestTask.h"
 #import "WSNetWorkClient.h"
+#import "WSNetworkTool.h"
 
 @interface WSRequestTask ()
 
@@ -47,8 +48,8 @@
     return self.httpURLResponse.statusCode;
 }
 
-- (NSDictionary *)responseHeaders {
-    return self.httpURLResponse.allHeaderFields;
+- (NSString *)ipAddress {
+    return [WSNetworkTool ipAddressWithHostName:self.httpURLResponse.URL.host];
 }
 
 #pragma mark - Common config

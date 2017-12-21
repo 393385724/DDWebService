@@ -61,6 +61,13 @@
  @return NSDictionary
  */
 + (NSDictionary *)dictionaryWithQueryString:(NSString *)queryString;
-    
+
+/**
+ 通过hostName解析出IP地址
+
+ @param hostName 需要解析的host
+ @return 解析成功返回IP，失败则为nil
+ */
++ (NSString *)ipAddressWithHostName:(const NSString *)hostName;
 
 @end
