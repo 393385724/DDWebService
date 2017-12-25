@@ -134,6 +134,10 @@ static NSString * const WSNetworkResumeDownloadDataTempCacheFolder = @"WSResumeT
 }
 
 + (NSString *)ipAddressWithHostName:(const NSString *)hostName {
+    if (!hostName || [hostName isKindOfClass:[NSNull class]]) {
+        //没有域名，返回nil
+        return nil;
+    }
     const char* szname = [hostName UTF8String];
     struct hostent* phot ;
     @try{
