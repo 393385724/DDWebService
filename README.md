@@ -33,6 +33,30 @@ API调用其实就是所有API的调用只有一个类，然后这个类接收AP
 
 综上，关于集约型的API调用和离散型的API调用，我倾向于这样：对外提供一个BaseReuqestTask来给业务方做派生，在Client里面采用集约化的手段组装请求，放飞请求，然而业务方调用API的时候，则是以离散的API调用方式来调用。
 
+## 框架介绍
+### 公有方法
+#### WSRequestTask
+    一个请求描述Model类
+#### NSError+WebServie
+    错误封装，根据需求可以忽略
+#### NSString+WebService
+    通用方法
+#### WSNetworkConfig
+    整体网络配置
+#### WSNetworkTool
+    工具类
+### 私有方法
+#### WSNetWorkClient
+实际请求发起者，封装了AFNetworking
+#### AFHTTPRequestSerializer+WSHTTPHeader
+私有方法，hook住AFNetworking中我们不需要自动配置的选项
+#### WSMultipartFormData
+私有方法，自定义的MultipartFormData数据组装
+#### WSQueryFormat
+私有方法，自定义的QueryFormat数据拼装
+#### WSRequestAgent
+私有方法，请求池管理类
+
 ## 2、案例
 #### （1）GET请求，(其他请求类似，只不过更改配置参数)
 创建一个请求 eg HMGetRequestTask
